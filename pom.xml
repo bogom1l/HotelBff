@@ -28,12 +28,10 @@
 
 	<modules>
 		<module>api</module>
-		<module>core</module>
 		<module>persistence</module>
 		<module>domain</module>
+		<module>core</module>
 		<module>rest</module>
-		<module>api</module>
-		<module>persistence</module>
 	</modules>
 
 	<dependencies>
