@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.tinqinacademy.hotelbff")
-@EntityScan(basePackages = "com.tinqinacademy.authentication.persistence.model")
+@EntityScan(basePackages = "com.tinqinacademy.hotelbff.persistence.model")
 @EnableJpaRepositories(basePackages = "com.tinqinacademy.hotelbff.persistence.repository")
 public class HotelBffApplication {
 
