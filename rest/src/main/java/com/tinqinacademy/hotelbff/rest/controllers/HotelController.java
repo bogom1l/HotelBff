@@ -1,10 +1,8 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
-import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
-import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
-import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +52,6 @@ public class HotelController extends BaseController {
     public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
         return hotelRestClient.getBookingHistory(phoneNumber);
     }
-
 
 
 }

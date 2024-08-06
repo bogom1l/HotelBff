@@ -1,5 +1,6 @@
 package com.tinqinacademy.hotelbff.api.restroutes;
 
+// currently not using RestApiRoutes from this project, but from the hotel project
 public class RestApiRoutes {
     public static final String API = "/api/v1";
     public static final String API_HOTEL = API + "/hotel";
