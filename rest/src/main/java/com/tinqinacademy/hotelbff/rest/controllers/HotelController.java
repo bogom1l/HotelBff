@@ -4,10 +4,9 @@ import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @RestController
 public class HotelController extends BaseController {
@@ -18,11 +17,18 @@ public class HotelController extends BaseController {
         this.hotelRestClient = hotelRestClient;
     }
 
-    @GetMapping("/room/{roomId}")
+    @GetMapping(RestApiRoutes.GET_ROOM_INFO)
     public ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId) {
         return hotelRestClient.getRoomBasicInfo(roomId);
     }
 
+    @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
+    public ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
+                                                @RequestParam(required = false) LocalDate endDate,
+                                                @RequestParam(required = false) String bedSize,
+                                                @RequestParam(required = false) String bathroomType) {
+        return hotelRestClient.checkAvailableRoom(startDate, endDate, bedSize, bathroomType);
+    }
 
 
 }

@@ -7,5 +7,4 @@ import org.springframework.cloud.openfeign.FeignClient;
 //todo @Headers("Content-Type: application/json")
 @FeignClient(name = "hotel", url = "http://localhost:8080")
 public interface HotelRestClient extends HotelRestExportClient {
-
 }
