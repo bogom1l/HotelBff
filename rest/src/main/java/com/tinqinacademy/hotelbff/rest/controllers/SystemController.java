@@ -1,21 +1,47 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
+import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
+import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class SystemController extends BaseController{
+public class SystemController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
 
     public SystemController(HotelRestClient hotelRestClient) {
         this.hotelRestClient = hotelRestClient;
+    }
+
+
+    @PostMapping(RestApiRoutes.REGISTER_GUEST)
+    public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
+        return hotelRestClient.registerGuest(input);
+    }
+
+    @GetMapping(RestApiRoutes.GET_REPORT)
+    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
+                                       @RequestParam(required = false) String endDate,
+                                       @RequestParam(required = false) String firstName,
+                                       @RequestParam(required = false) String lastName,
+                                       @RequestParam(required = false) String phoneNumber,
+                                       @RequestParam(required = false) String idCardNumber,
+                                       @RequestParam(required = false) String idCardValidity,
+                                       @RequestParam(required = false) String idCardIssueAuthority,
+                                       @RequestParam(required = false) String idCardIssueDate,
+                                       @RequestParam(required = false) String roomNumber) {
+        return hotelRestClient.getReport(startDate, endDate, firstName, lastName, phoneNumber, idCardNumber,
+                idCardValidity, idCardIssueAuthority, idCardIssueDate, roomNumber);
+    }
+
+    @PostMapping(RestApiRoutes.CREATE_ROOM)
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
+        return hotelRestClient.createRoom(input);
     }
 
     @PutMapping(RestApiRoutes.UPDATE_ROOM)
@@ -24,5 +50,20 @@ public class SystemController extends BaseController{
         return hotelRestClient.updateRoom(roomId, input);
     }
 
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_ROOM)
+    public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
+                                                 @RequestBody UpdatePartiallyRoomInput input) {
+        return hotelRestClient.updatePartiallyRoom(roomId, input);
+    }
+
+    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
+        return hotelRestClient.deleteRoom(id);
+    }
+
+    @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
+    public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {
+        return hotelRestClient.getAllUsersByPartialName(partialName);
+    }
 
 }

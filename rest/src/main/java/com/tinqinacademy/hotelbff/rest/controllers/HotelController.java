@@ -1,6 +1,7 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
 import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
@@ -19,17 +20,17 @@ public class HotelController extends BaseController {
         this.hotelRestClient = hotelRestClient;
     }
 
-    @GetMapping(RestApiRoutes.GET_ROOM_INFO)
-    public ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId) {
-        return hotelRestClient.getRoomBasicInfo(roomId);
-    }
-
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     public ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
                                                 @RequestParam(required = false) LocalDate endDate,
                                                 @RequestParam(required = false) String bedSize,
                                                 @RequestParam(required = false) String bathroomType) {
         return hotelRestClient.checkAvailableRoom(startDate, endDate, bedSize, bathroomType);
+    }
+
+    @GetMapping(RestApiRoutes.GET_ROOM_INFO)
+    public ResponseEntity<?> getRoomBasicInfo(@PathVariable String roomId) {
+        return hotelRestClient.getRoomBasicInfo(roomId);
     }
 
     @PostMapping(RestApiRoutes.BOOK_ROOM)
@@ -48,6 +49,12 @@ public class HotelController extends BaseController {
                                                     @RequestBody UpdatePartiallyBookingInput input) {
         return hotelRestClient.updatePartiallyBooking(bookingId, input);
     }
+
+    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
+    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
+        return hotelRestClient.getBookingHistory(phoneNumber);
+    }
+
 
 
 }
