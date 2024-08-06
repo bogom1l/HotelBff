@@ -1,6 +1,8 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +32,21 @@ public class HotelController extends BaseController {
         return hotelRestClient.checkAvailableRoom(startDate, endDate, bedSize, bathroomType);
     }
 
-    @PostMapping(com.tinqinacademy.hotel.api.restroutes.RestApiRoutes.BOOK_ROOM)
+    @PostMapping(RestApiRoutes.BOOK_ROOM)
     public ResponseEntity<?> bookRoom(@PathVariable String roomId,
                                       @RequestBody BookRoomInput input) {
         return hotelRestClient.bookRoom(roomId, input);
+    }
+
+    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
+    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
+        return hotelRestClient.unbookRoom(bookingId);
+    }
+
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
+                                                    @RequestBody UpdatePartiallyBookingInput input) {
+        return hotelRestClient.updatePartiallyBooking(bookingId, input);
     }
 
 
