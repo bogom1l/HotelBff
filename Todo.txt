@@ -1,5 +1,7 @@
 todo
 
-fix "status": 415,
-     "error": "Unsupported Media Type",
-(s pomosht ot Plamen)
+* Problem: java.net.ProtocolException: Invalid HTTP method: PATCH at java.base/java.net.HttpURLConnection
+  Solution 1: FeignConfig : OkHttpClient
+  Solution 2: @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM, consumes = "application/json-patch+json")
+   * Problem:
+    "status": 415, "error": "Unsupported Media Type" (s pomosht ot Plamen)
