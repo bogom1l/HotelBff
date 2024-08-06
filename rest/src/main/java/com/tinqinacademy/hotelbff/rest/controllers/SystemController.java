@@ -51,8 +51,7 @@ public class SystemController extends BaseController {
     }
 
     //, consumes = "application/json-patch+json"
-    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM,
-            consumes = "application/json-patch+json")
+    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM)
     public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
                                                  @RequestBody UpdatePartiallyRoomInput input) {
         return hotelRestClient.updatePartiallyRoom(roomId, input);

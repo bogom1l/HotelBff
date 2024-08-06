@@ -42,7 +42,7 @@ public class HotelController extends BaseController {
         return hotelRestClient.unbookRoom(bookingId);
     }
 
-    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
                                                     @RequestBody UpdatePartiallyBookingInput input) {
         return hotelRestClient.updatePartiallyBooking(bookingId, input);
