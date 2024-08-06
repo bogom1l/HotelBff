@@ -13,7 +13,13 @@
     <version>${revision}</version>
 
     <dependencies>
-        <!-- TODO -->
+
+        <dependency>
+            <groupId>com.tinqinacademy.hotel</groupId>
+            <artifactId>restexport</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 </project>
