@@ -1,1 +1,5 @@
 todo
+
+fix "status": 415,
+     "error": "Unsupported Media Type",
+(s pomosht ot Plamen)

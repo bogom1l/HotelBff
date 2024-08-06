@@ -5,11 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import feign.Client;
 import feign.okhttp.OkHttpClient;
 
-@Configuration
+//Configuration
 public class FeignConfig {
 
-    @Bean
-    public Client feignClient() {
-        return new OkHttpClient();
-    }
+//    @Bean
+//    public Client feignClient() {
+//        return new OkHttpClient();
+//    }
 }
