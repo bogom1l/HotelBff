@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +28,12 @@ public class HotelController extends BaseController {
                                                 @RequestParam(required = false) String bedSize,
                                                 @RequestParam(required = false) String bathroomType) {
         return hotelRestClient.checkAvailableRoom(startDate, endDate, bedSize, bathroomType);
+    }
+
+    @PostMapping(com.tinqinacademy.hotel.api.restroutes.RestApiRoutes.BOOK_ROOM)
+    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
+                                      @RequestBody BookRoomInput input) {
+        return hotelRestClient.bookRoom(roomId, input);
     }
 
 
