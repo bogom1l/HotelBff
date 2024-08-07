@@ -1,9 +1,16 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.comments.api.operations.addcomment.AddCommentInput;
+import com.tinqinacademy.comments.api.operations.editcomment.EditCommentInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
-import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +20,11 @@ import java.time.LocalDate;
 public class HotelController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
+    private final CommentsRestClient commentsRestClient;
 
-    public HotelController(HotelRestClient hotelRestClient) {
+    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient) {
         this.hotelRestClient = hotelRestClient;
+        this.commentsRestClient = commentsRestClient;
     }
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
@@ -42,6 +51,7 @@ public class HotelController extends BaseController {
         return hotelRestClient.unbookRoom(bookingId);
     }
 
+    //, consumes = "application/json-patch+json"
     @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
                                                     @RequestBody UpdatePartiallyBookingInput input) {
@@ -53,5 +63,23 @@ public class HotelController extends BaseController {
         return hotelRestClient.getBookingHistory(phoneNumber);
     }
 
+    //------- Comments -------
+
+    @GetMapping(RestApiRoutes.GET_ALL_COMMENTS)
+    public ResponseEntity<?> getAllComments(@PathVariable String roomId) {
+        return commentsRestClient.getAllComments(roomId);
+    }
+
+    @PostMapping(RestApiRoutes.ADD_COMMENT)
+    public ResponseEntity<?> addComment(@PathVariable String roomId,
+                                        @RequestBody AddCommentInput input) {
+        return commentsRestClient.addComment(roomId, input);
+    }
+
+    @PutMapping(RestApiRoutes.EDIT_COMMENT)
+    public ResponseEntity<?> editComment(@PathVariable String commentId,
+                                         @RequestBody EditCommentInput input) {
+        return commentsRestClient.editComment(commentId, input);
+    }
 
 }

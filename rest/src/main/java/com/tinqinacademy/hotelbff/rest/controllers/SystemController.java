@@ -1,11 +1,17 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.comments.api.operations.deletecommentadmin.DeleteCommentAdminInput;
+import com.tinqinacademy.comments.api.operations.editcommentadmin.EditCommentAdminInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
-import com.tinqinacademy.hotel.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +19,11 @@ import org.springframework.web.bind.annotation.*;
 public class SystemController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
+    private final CommentsRestClient commentsRestClient;
 
-    public SystemController(HotelRestClient hotelRestClient) {
+    public SystemController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient) {
         this.hotelRestClient = hotelRestClient;
+        this.commentsRestClient = commentsRestClient;
     }
 
 
@@ -65,6 +73,19 @@ public class SystemController extends BaseController {
     @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
     public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {
         return hotelRestClient.getAllUsersByPartialName(partialName);
+    }
+
+    // ----- Comments -----
+
+    @PatchMapping(RestApiRoutes.EDIT_COMMENT_ADMIN)
+    public ResponseEntity<?> editCommentAdmin(@PathVariable String commentId,
+                                              @RequestBody EditCommentAdminInput input) {
+        return commentsRestClient.editCommentAdmin(commentId, input);
+    }
+
+    @DeleteMapping(RestApiRoutes.DELETE_COMMENT_ADMIN)
+    ResponseEntity<?> deleteCommentAdmin(@PathVariable String commentId) {
+        return commentsRestClient.deleteCommentAdmin(commentId);
     }
 
 }
