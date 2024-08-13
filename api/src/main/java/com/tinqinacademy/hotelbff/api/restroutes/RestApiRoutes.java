@@ -5,6 +5,7 @@ public class RestApiRoutes {
     public static final String API = "/api/v1";
     public static final String API_HOTEL = API + "/hotel";
     public static final String API_SYSTEM = API + "/system";
+    public static final String API_AUTH = API + "/auth";
 
     public static final String CHECK_ROOM_AVAILABILITY = API_HOTEL + "/rooms";
     public static final String GET_ROOM_INFO = API_HOTEL + "/{roomId}";
@@ -30,4 +31,5 @@ public class RestApiRoutes {
     public static final String EDIT_COMMENT_ADMIN = API_SYSTEM + COMMENT + "/{commentId}";
     public static final String DELETE_COMMENT_ADMIN = API_SYSTEM + COMMENT + "/{commentId}";
 
+    public final static String AUTH_CHECK_JWT = API_AUTH + "/validate-jwt";
 }

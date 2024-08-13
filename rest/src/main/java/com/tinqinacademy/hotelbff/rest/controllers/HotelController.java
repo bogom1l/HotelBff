@@ -5,12 +5,9 @@ import com.tinqinacademy.comments.api.operations.editcomment.EditCommentInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotelbff.domain.AuthRestClient;
 import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +18,12 @@ public class HotelController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
     private final CommentsRestClient commentsRestClient;
+    private final AuthRestClient authRestClient;
 
-    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient) {
+    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient, AuthRestClient authRestClient) {
         this.hotelRestClient = hotelRestClient;
         this.commentsRestClient = commentsRestClient;
+        this.authRestClient = authRestClient;
     }
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
