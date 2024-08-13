@@ -15,8 +15,10 @@ public class JwtDecoder {
     private final ObjectMapper objectMapper;
 
     public Map<String, Object> getPayloadFromJwt(String authorizationHeader) throws IOException {
-        String jwt = authorizationHeader.substring(7);
-        String[] chunks = jwt.split("\\.");
+        String token = authorizationHeader.substring(7);
+
+        String[] chunks = token.split("\\.");
+
         Base64.Decoder decoder = Base64.getUrlDecoder();
         String payload = new String(decoder.decode(chunks[1]));
 

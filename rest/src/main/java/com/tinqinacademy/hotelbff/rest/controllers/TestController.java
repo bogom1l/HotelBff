@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TestController extends BaseController{
+public class TestController extends BaseController {
 
     private final AuthRestClient authRestClient;
 
@@ -18,10 +18,8 @@ public class TestController extends BaseController{
     }
 
     @GetMapping(RestApiRoutes.AUTH_CHECK_JWT)
-    public ResponseEntity<?> testValidateJwt(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
-
-        String test = "test";
-        return ResponseEntity.ok(authRestClient.validateJwt(authHeader));
+    public ResponseEntity<?> testValidateJwt(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authorizationHeader) {
+        return ResponseEntity.ok(authRestClient.validateJwt(authorizationHeader));
     }
 
 }

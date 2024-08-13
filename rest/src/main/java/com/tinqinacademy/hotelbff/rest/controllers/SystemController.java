@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
-import com.tinqinacademy.comments.api.operations.deletecommentadmin.DeleteCommentAdminInput;
 import com.tinqinacademy.comments.api.operations.editcommentadmin.EditCommentAdminInput;
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
@@ -9,9 +8,6 @@ import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
