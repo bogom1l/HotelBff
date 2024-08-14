@@ -3,10 +3,16 @@ package com.tinqinacademy.hotelbff.rest.controllers;
 import com.tinqinacademy.comments.api.operations.addcomment.AddCommentInput;
 import com.tinqinacademy.comments.api.operations.editcomment.EditCommentInput;
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
+import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
+import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
+import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOutput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
+import io.vavr.control.Either;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +23,12 @@ public class HotelController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
     private final CommentsRestClient commentsRestClient;
+    private final CheckAvailableRoomBffOperation checkAvailableRoom;
 
-    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient) {
+    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient, CheckAvailableRoomBffOperation checkAvailableRoom) {
         this.hotelRestClient = hotelRestClient;
         this.commentsRestClient = commentsRestClient;
+        this.checkAvailableRoom = checkAvailableRoom;
     }
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
@@ -28,7 +36,15 @@ public class HotelController extends BaseController {
                                                 @RequestParam(required = false) LocalDate endDate,
                                                 @RequestParam(required = false) String bedSize,
                                                 @RequestParam(required = false) String bathroomType) {
-        return hotelRestClient.checkAvailableRoom(startDate, endDate, bedSize, bathroomType);
+        CheckAvailableRoomBffInput input = CheckAvailableRoomBffInput.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .bedSize(bedSize)
+                .bathroomType(bathroomType)
+                .build();
+
+        Either<ErrorsWrapper,CheckAvailableRoomBffOutput> output = checkAvailableRoom.process(input);
+        return handle(output);
     }
 
     @GetMapping(RestApiRoutes.GET_ROOM_INFO)
