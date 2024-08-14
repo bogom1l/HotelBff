@@ -6,6 +6,8 @@ import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
+import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOutput;
@@ -15,6 +17,7 @@ import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
 import io.vavr.control.Either;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +30,14 @@ public class HotelController extends BaseController {
     private final CommentsRestClient commentsRestClient;
     private final CheckAvailableRoomBffOperation checkAvailableRoom;
     private final GetRoomBasicInfoBffOperation getRoomBasicInfo;
+    private final BookRoomBffOperation bookRoom;
 
-    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient, CheckAvailableRoomBffOperation checkAvailableRoom, GetRoomBasicInfoBffOperation getRoomBasicInfo) {
+    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient, CheckAvailableRoomBffOperation checkAvailableRoom, GetRoomBasicInfoBffOperation getRoomBasicInfo, BookRoomBffOperation bookRoom) {
         this.hotelRestClient = hotelRestClient;
         this.commentsRestClient = commentsRestClient;
         this.checkAvailableRoom = checkAvailableRoom;
         this.getRoomBasicInfo = getRoomBasicInfo;
+        this.bookRoom = bookRoom;
     }
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
@@ -59,12 +64,17 @@ public class HotelController extends BaseController {
 
         return handle(getRoomBasicInfo.process(input));
     }
-//
-//    @PostMapping(RestApiRoutes.BOOK_ROOM)
-//    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
-//                                      @RequestBody BookRoomInput input) {
-//        return hotelRestClient.bookRoom(roomId, input);
-//    }
+
+    @PostMapping(RestApiRoutes.BOOK_ROOM)
+    public ResponseEntity<?> bookRoom(@PathVariable String roomId,
+                                      @RequestBody BookRoomBffInput input) {
+        BookRoomBffInput updatedInput = input.toBuilder()
+                .roomId(roomId)
+                //todo .userId(usercontext.getId())
+                .build();
+
+        return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);
+    }
 //
 //    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
 //    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {

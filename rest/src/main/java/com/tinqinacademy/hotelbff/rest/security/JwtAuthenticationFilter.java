@@ -2,6 +2,7 @@ package com.tinqinacademy.hotelbff.rest.security;
 
 import com.tinqinacademy.authentication.api.operations.validatejwt.ValidateJwtOutput;
 import com.tinqinacademy.hotelbff.domain.AuthRestClient;
+import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtDecoder jwtDecoder;
     private final AuthRestClient authRestClient;
+    private final UserContext userContext;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
