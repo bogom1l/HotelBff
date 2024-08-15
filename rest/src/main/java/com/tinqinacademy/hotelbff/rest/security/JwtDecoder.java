@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Map;
 
+/**
+ * This class decodes the payload from a JWT token received in the Authorization header.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtDecoder {
