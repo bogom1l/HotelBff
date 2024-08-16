@@ -1,5 +1,7 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.hotelbff.api.operations.system.createroom.CreateRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.createroom.CreateRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffInput;
@@ -19,6 +21,7 @@ public class SystemController extends BaseController {
     private final CommentsRestClient commentsRestClient;
     private final RegisterGuestBffOperation registerGuest;
     private final GetReportBffOperation getReport;
+    private final CreateRoomBffOperation createRoom;
 
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
@@ -52,11 +55,11 @@ public class SystemController extends BaseController {
 
         return handle(getReport.process(input));
     }
-//
-//    @PostMapping(RestApiRoutes.CREATE_ROOM)
-//    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
-//        return hotelRestClient.createRoom(input);
-//    }
+
+    @PostMapping(RestApiRoutes.CREATE_ROOM)
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomBffInput input) {
+        return handle(createRoom.process(input));
+    }
 //
 //    @PutMapping(RestApiRoutes.UPDATE_ROOM)
 //    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
