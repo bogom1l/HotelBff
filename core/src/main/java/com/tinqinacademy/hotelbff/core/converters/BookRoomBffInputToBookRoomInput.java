@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class BookRoomBffInputToBookRoomInput implements Converter<BookRoomBffInput, BookRoomInput> {
 
-    private final UserContext userContext;
-
     @Override
     public BookRoomInput convert(BookRoomBffInput source) {
         log.info("Started Converter - BookRoomBffInput to BookRoomInput");
@@ -19,7 +17,7 @@ public class BookRoomBffInputToBookRoomInput implements Converter<BookRoomBffInp
         BookRoomInput output = BookRoomInput.builder()
                 .startDate(source.getStartDate())
                 .endDate(source.getEndDate())
-                .userId()// todo to get the userId from the token
+                .userId(source.getUserContextId())
                 .build();
 
         log.info("Ended Converter - BookRoomBffInput to BookRoomInput");

@@ -1,10 +1,5 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
-import com.tinqinacademy.comments.api.operations.addcomment.AddCommentInput;
-import com.tinqinacademy.comments.api.operations.editcomment.EditCommentInput;
-import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
-import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
-import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingInput;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffOperation;
@@ -16,7 +11,9 @@ import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicIn
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
+import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
 import io.vavr.control.Either;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
+@RequiredArgsConstructor
 public class HotelController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
@@ -31,14 +29,8 @@ public class HotelController extends BaseController {
     private final CheckAvailableRoomBffOperation checkAvailableRoom;
     private final GetRoomBasicInfoBffOperation getRoomBasicInfo;
     private final BookRoomBffOperation bookRoom;
+    private final UserContext userContext;
 
-    public HotelController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient, CheckAvailableRoomBffOperation checkAvailableRoom, GetRoomBasicInfoBffOperation getRoomBasicInfo, BookRoomBffOperation bookRoom) {
-        this.hotelRestClient = hotelRestClient;
-        this.commentsRestClient = commentsRestClient;
-        this.checkAvailableRoom = checkAvailableRoom;
-        this.getRoomBasicInfo = getRoomBasicInfo;
-        this.bookRoom = bookRoom;
-    }
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     public ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
@@ -52,7 +44,7 @@ public class HotelController extends BaseController {
                 .bathroomType(bathroomType)
                 .build();
 
-        Either<ErrorsWrapper,CheckAvailableRoomBffOutput> output = checkAvailableRoom.process(input);
+        Either<ErrorsWrapper, CheckAvailableRoomBffOutput> output = checkAvailableRoom.process(input);
         return handle(output);
     }
 
@@ -70,7 +62,7 @@ public class HotelController extends BaseController {
                                       @RequestBody BookRoomBffInput input) {
         BookRoomBffInput updatedInput = input.toBuilder()
                 .roomId(roomId)
-                //todo .userId(usercontext.getId())
+                .userContextId(userContext.getUserId())
                 .build();
 
         return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);

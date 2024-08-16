@@ -60,16 +60,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 Map<String, Object> payloadMap = jwtDecoder.getPayloadFromJwt(token);
 
-                String id = (String) payloadMap.get("sub");
+                String userId = (String) payloadMap.get("sub");
                 String role = (String) payloadMap.get("role");
                 GrantedAuthority authority = new SimpleGrantedAuthority(role);
 
                 CustomAuthenticationToken customAuthenticationToken = new CustomAuthenticationToken(
-                        List.of(authority), id
+                        List.of(authority), userId
                 );
                 customAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(customAuthenticationToken);
+                userContext.setUserId(userId);
             } catch (Exception e) {
                 filterChain.doFilter(request, response);
                 return;

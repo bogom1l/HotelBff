@@ -21,6 +21,9 @@ public class BookRoomBffInput implements OperationInput {
     @NotNull(message = "End date is mandatory")
     private LocalDate endDate;
 
-    @NotBlank(message = "Room id is mandatory")
+    @JsonIgnore
     private String roomId;
+
+    @JsonIgnore
+    private String userContextId;
 }

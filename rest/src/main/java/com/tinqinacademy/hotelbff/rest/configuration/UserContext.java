@@ -8,7 +8,7 @@ import org.springframework.web.context.annotation.RequestScope;
 @Getter
 @Setter
 @Component
-@RequestScope //todo ? By using @RequestScope, the userId gets cleared after each HTTP request
+@RequestScope // Defining the scope of the bean - a new instance is created for each HTTP request
 public class UserContext {
     private String userId;
 }

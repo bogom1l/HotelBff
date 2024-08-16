@@ -22,23 +22,23 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * This class is annotated with @Configuration and @EnableWebSecurity,
  * making it a Spring configuration bean and enabling Spring Security for your application.
  * It injects the custom JwtAuthenticationFilter and JwtAuthenticationEntryPoint beans for further configuration.
-
+ * <p>
  * A custom UserDetailsService bean (emptyDetailsService) is defined, preventing Spring Security from
  * attempting to create local users (as we are relying only on JWT tokens).
-
-
+ * <p>
+ * <p>
  * Disables CSRF protection as it's not typically required for JWT-based authentication.
-
+ * <p>
  * Defines authorization rules for different URL patterns using lambdas.
-
+ * <p>
  * Adds the jwtAuthenticationFilter before the default UsernamePasswordAuthenticationFilter.
  * This ensures JWT token processing happens before attempting other authentication methods.
-
+ * <p>
  * Sets the jwtAuthenticationEntryPoint bean as the default handler for authentication failures.
-
+ * <p>
  * Disables session management as your application relies on stateless JWT tokens.
-
-
+ * <p>
+ * <p>
  * Overall, this configuration establishes a security framework that leverages JWT tokens for authentication and authorization.
  * It defines access rules for different URL patterns based on user roles
  * and disables unnecessary features like session management and CSRF protection.
@@ -52,11 +52,17 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     private final String[] USER_ONLY_URLS = {
-            RestApiRoutes.AUTH_CHECK_JWT //todo add more
+            RestApiRoutes.AUTH_CHECK_JWT, //todo add more
+            RestApiRoutes.BOOK_ROOM
     };
 
     private final String[] ADMIN_ONLY_URLS = {
-        //todo add more
+            //todo add more
+    };
+
+    private final String[] PUBLIC_URLS = {
+            RestApiRoutes.GET_ROOM_INFO,
+            RestApiRoutes.CHECK_ROOM_AVAILABILITY
     };
 
     @Bean
@@ -74,6 +80,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers(PUBLIC_URLS).permitAll())
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN"))
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN"))
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
