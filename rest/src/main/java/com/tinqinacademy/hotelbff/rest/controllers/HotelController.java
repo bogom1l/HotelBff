@@ -1,11 +1,14 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOperation;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.deletebooking.UnbookRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.deletebooking.UnbookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicInfoBffInput;
 import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicInfoBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
@@ -30,6 +33,7 @@ public class HotelController extends BaseController {
     private final GetRoomBasicInfoBffOperation getRoomBasicInfo;
     private final BookRoomBffOperation bookRoom;
     private final UserContext userContext;
+    private final UnbookRoomBffOperation unbookRoom;
 
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
@@ -67,11 +71,17 @@ public class HotelController extends BaseController {
 
         return handleWithStatus(bookRoom.process(updatedInput), HttpStatus.CREATED);
     }
-//
-//    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
-//    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId) {
-//        return hotelRestClient.unbookRoom(bookingId);
-//    }
+
+    @DeleteMapping(RestApiRoutes.UNBOOK_ROOM)
+    public ResponseEntity<?> unbookRoom(@PathVariable String bookingId,
+                                        @RequestBody UnbookRoomBffInput input) {
+        UnbookRoomBffInput updatedInput = input.toBuilder()
+                .bookingId(bookingId)
+                .userContextId(userContext.getUserId())
+                .build();
+
+        return handle(unbookRoom.process(updatedInput));
+    }
 //
 //    //, consumes = "application/json-patch+json"
 //    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)

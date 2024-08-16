@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters;
+package com.tinqinacademy.hotelbff.core.converters.getroombasicinfo;
 
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicInfoBffInput;

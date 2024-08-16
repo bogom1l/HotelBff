@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters;
+package com.tinqinacademy.hotelbff.core.converters.checkavailableroom;
 
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomInput;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffInput;

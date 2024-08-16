@@ -51,18 +51,27 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    private final String[] USER_ONLY_URLS = {
-            RestApiRoutes.AUTH_CHECK_JWT, //todo add more
-            RestApiRoutes.BOOK_ROOM
-    };
-
-    private final String[] ADMIN_ONLY_URLS = {
-            //todo add more
-    };
-
     private final String[] PUBLIC_URLS = {
             RestApiRoutes.GET_ROOM_INFO,
             RestApiRoutes.CHECK_ROOM_AVAILABILITY
+    };
+
+    private final String[] USER_ONLY_URLS = {
+            RestApiRoutes.AUTH_CHECK_JWT,
+            RestApiRoutes.BOOK_ROOM,
+            RestApiRoutes.UNBOOK_ROOM,
+            RestApiRoutes.UPDATE_PARTIALLY_BOOKING, //todo ? user/public
+            RestApiRoutes.GET_BOOKING_HISTORY
+    };
+
+    private final String[] ADMIN_ONLY_URLS = {
+            RestApiRoutes.REGISTER_GUEST,
+            RestApiRoutes.GET_REPORT,
+            RestApiRoutes.CREATE_ROOM,
+            RestApiRoutes.UPDATE_ROOM,
+            RestApiRoutes.UPDATE_PARTIALLY_ROOM,
+            RestApiRoutes.DELETE_ROOM,
+            RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME
     };
 
     @Bean
@@ -83,7 +92,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(PUBLIC_URLS).permitAll())
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN"))
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN"))
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) //todo necessary?
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
