@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotelbff.core.converters.system;
 
 import com.tinqinacademy.hotel.api.operations.system.registerguest.GuestInput;
-import com.tinqinacademy.hotelbff.api.operations.registerguest.GuestBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.registerguest.GuestBffInput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

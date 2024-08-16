@@ -3,7 +3,7 @@ package com.tinqinacademy.hotelbff.core.converters.hotel.getroombasicinfo;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotelbff.api.enums.BathroomType;
 import com.tinqinacademy.hotelbff.api.enums.BedSize;
-import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicInfoBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoBffOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

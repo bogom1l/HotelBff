@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.checkavailableroom;
+package com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom;
 
 import com.tinqinacademy.hotelbff.api.base.OperationOutput;
 import lombok.*;

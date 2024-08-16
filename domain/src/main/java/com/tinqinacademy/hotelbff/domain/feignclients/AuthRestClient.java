@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.domain;
+package com.tinqinacademy.hotelbff.domain.feignclients;
 
 import com.tinqinacademy.authentication.restexport.AuthRestExportClient;
 import org.springframework.cloud.openfeign.FeignClient;

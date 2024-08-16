@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotelbff.core.converters.hotel.bookroom;
 
 import com.tinqinacademy.hotel.api.operations.hotel.bookroom.BookRoomInput;
-import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.bookroom.BookRoomBffInput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

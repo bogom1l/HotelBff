@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotelbff.core.converters.hotel.checkavailableroom;
 
 import com.tinqinacademy.hotel.api.operations.hotel.checkavailableroom.CheckAvailableRoomOutput;
-import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.getroombasicinfo;
+package com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo;
 
 import com.tinqinacademy.hotelbff.api.base.OperationInput;
 import lombok.*;

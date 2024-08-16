@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotelbff.rest.security;
 
 import com.tinqinacademy.authentication.api.operations.validatejwt.ValidateJwtOutput;
-import com.tinqinacademy.hotelbff.domain.AuthRestClient;
+import com.tinqinacademy.hotelbff.domain.feignclients.AuthRestClient;
 import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

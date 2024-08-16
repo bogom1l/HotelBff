@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.registerguest;
+package com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom;
 
 import com.tinqinacademy.hotelbff.api.base.OperationOutput;
 import lombok.*;
@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class RegisterGuestBffOutput implements OperationOutput {
+public class UnbookRoomBffOutput implements OperationOutput {
 }

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.registerguest;
+package com.tinqinacademy.hotelbff.api.operations.system.registerguest;
 
 import com.tinqinacademy.hotelbff.api.base.OperationProcessor;
 

@@ -1,7 +1,7 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
-import com.tinqinacademy.hotelbff.domain.AuthRestClient;
+import com.tinqinacademy.hotelbff.domain.feignclients.AuthRestClient;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

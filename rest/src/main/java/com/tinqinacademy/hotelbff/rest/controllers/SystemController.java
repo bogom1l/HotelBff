@@ -1,15 +1,10 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
-import com.tinqinacademy.comments.api.operations.editcommentadmin.EditCommentAdminInput;
-import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
-import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
-import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
-import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
-import com.tinqinacademy.hotelbff.api.operations.registerguest.RegisterGuestBffInput;
-import com.tinqinacademy.hotelbff.api.operations.registerguest.RegisterGuestBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
-import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
-import com.tinqinacademy.hotelbff.domain.HotelRestClient;
+import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
+import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.domain;
+package com.tinqinacademy.hotelbff.domain.feignclients.config;
 
 import feign.Client;
 import feign.okhttp.OkHttpClient;
@@ -10,6 +10,6 @@ public class FeignConfig {
 
     @Bean
     public Client feignClient() {
-        return new OkHttpClient();
+        return new OkHttpClient(); // for the PATCH requests
     }
 }

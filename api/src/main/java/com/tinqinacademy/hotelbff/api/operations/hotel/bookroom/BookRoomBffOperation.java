@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.bookroom;
+package com.tinqinacademy.hotelbff.api.operations.hotel.bookroom;
 
 import com.tinqinacademy.hotelbff.api.base.OperationProcessor;
 
