@@ -6,6 +6,8 @@ import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffIn
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
@@ -25,6 +27,7 @@ public class SystemController extends BaseController {
     private final GetReportBffOperation getReport;
     private final CreateRoomBffOperation createRoom;
     private final UpdateRoomBffOperation updateRoom;
+    private final UpdatePartiallyRoomBffOperation updatePartiallyRoom;
 
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
@@ -73,13 +76,17 @@ public class SystemController extends BaseController {
 
         return handle(updateRoom.process(updatedInput));
     }
-//
-//    //, consumes = "application/json-patch+json"
-//    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM)
-//    public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
-//                                                 @RequestBody UpdatePartiallyRoomInput input) {
-//        return hotelRestClient.updatePartiallyRoom(roomId, input);
-//    }
+
+    //, consumes = "application/json-patch+json"
+    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM)
+    public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
+                                                 @RequestBody UpdatePartiallyRoomBffInput input) {
+        UpdatePartiallyRoomBffInput updatedInput = input.toBuilder()
+                .roomId(roomId)
+                .build();
+
+        return handle(updatePartiallyRoom.process(updatedInput));
+    }
 //
 //    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
 //    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
