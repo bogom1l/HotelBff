@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters.system;
+package com.tinqinacademy.hotelbff.core.converters.system.updatepartiallyroom;
 
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
 import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomBffOutput;

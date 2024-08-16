@@ -2,6 +2,8 @@ package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.tinqinacademy.hotelbff.api.operations.system.createroom.CreateRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.createroom.CreateRoomBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.system.deleteroom.DeleteRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.deleteroom.DeleteRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffInput;
@@ -28,6 +30,7 @@ public class SystemController extends BaseController {
     private final CreateRoomBffOperation createRoom;
     private final UpdateRoomBffOperation updateRoom;
     private final UpdatePartiallyRoomBffOperation updatePartiallyRoom;
+    private final DeleteRoomBffOperation deleteRoom;
 
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
@@ -87,11 +90,14 @@ public class SystemController extends BaseController {
 
         return handle(updatePartiallyRoom.process(updatedInput));
     }
-//
-//    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
-//    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
-//        return hotelRestClient.deleteRoom(id);
-//    }
+
+    @DeleteMapping(RestApiRoutes.DELETE_ROOM)
+    public ResponseEntity<?> deleteRoom(@PathVariable("roomId") String id) {
+        DeleteRoomBffInput input = DeleteRoomBffInput.builder()
+                .id(id)
+                .build();
+        return handle(deleteRoom.process(input));
+    }
 //
 //    @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
 //    public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {

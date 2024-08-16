@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters.system;
+package com.tinqinacademy.hotelbff.core.converters.system.registerguest;
 
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestOutput;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffOutput;

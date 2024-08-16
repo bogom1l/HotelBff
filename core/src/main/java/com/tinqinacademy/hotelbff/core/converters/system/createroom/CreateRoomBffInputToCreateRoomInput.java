@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters.system;
+package com.tinqinacademy.hotelbff.core.converters.system.createroom;
 
 import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotelbff.api.operations.system.createroom.CreateRoomBffInput;

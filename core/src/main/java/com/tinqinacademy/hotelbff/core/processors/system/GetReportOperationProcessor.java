@@ -37,6 +37,7 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
 
     private GetReportBffOutput getReport(GetReportBffInput input) {
         log.info("Started getReport with input: {}", input);
+        validateInput(input);
 
         GetReportInput inputFromHotel = conversionService.convert(input, GetReportInput.class);
 
