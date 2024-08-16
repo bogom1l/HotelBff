@@ -1,5 +1,7 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
@@ -16,27 +18,40 @@ public class SystemController extends BaseController {
     private final HotelRestClient hotelRestClient;
     private final CommentsRestClient commentsRestClient;
     private final RegisterGuestBffOperation registerGuest;
+    private final GetReportBffOperation getReport;
 
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
     public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestBffInput input) {
         return handle(registerGuest.process(input));
     }
-//
-//    @GetMapping(RestApiRoutes.GET_REPORT)
-//    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
-//                                       @RequestParam(required = false) String endDate,
-//                                       @RequestParam(required = false) String firstName,
-//                                       @RequestParam(required = false) String lastName,
-//                                       @RequestParam(required = false) String phoneNumber,
-//                                       @RequestParam(required = false) String idCardNumber,
-//                                       @RequestParam(required = false) String idCardValidity,
-//                                       @RequestParam(required = false) String idCardIssueAuthority,
-//                                       @RequestParam(required = false) String idCardIssueDate,
-//                                       @RequestParam(required = false) String roomNumber) {
-//        return hotelRestClient.getReport(startDate, endDate, firstName, lastName, phoneNumber, idCardNumber,
-//                idCardValidity, idCardIssueAuthority, idCardIssueDate, roomNumber);
-//    }
+
+    @GetMapping(RestApiRoutes.GET_REPORT)
+    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
+                                       @RequestParam(required = false) String endDate,
+                                       @RequestParam(required = false) String firstName,
+                                       @RequestParam(required = false) String lastName,
+                                       @RequestParam(required = false) String phoneNumber,
+                                       @RequestParam(required = false) String idCardNumber,
+                                       @RequestParam(required = false) String idCardValidity,
+                                       @RequestParam(required = false) String idCardIssueAuthority,
+                                       @RequestParam(required = false) String idCardIssueDate,
+                                       @RequestParam(required = false) String roomNumber) {
+        GetReportBffInput input = GetReportBffInput.builder()
+                .startDate(startDate)
+                .endDate(endDate)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phoneNumber(phoneNumber)
+                .idCardNumber(idCardNumber)
+                .idCardValidity(idCardValidity)
+                .idCardIssueAuthority(idCardIssueAuthority)
+                .idCardIssueDate(idCardIssueDate)
+                .roomNumber(roomNumber)
+                .build();
+
+        return handle(getReport.process(input));
+    }
 //
 //    @PostMapping(RestApiRoutes.CREATE_ROOM)
 //    public ResponseEntity<?> createRoom(@RequestBody CreateRoomInput input) {
