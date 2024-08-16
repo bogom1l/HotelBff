@@ -1,14 +1,13 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
-import com.tinqinacademy.hotel.api.operations.hotel.unbookroom.UnbookRoomOperation;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.bookroom.BookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.checkavailableroom.CheckAvailableRoomBffOutput;
-import com.tinqinacademy.hotelbff.api.operations.deletebooking.UnbookRoomBffInput;
-import com.tinqinacademy.hotelbff.api.operations.deletebooking.UnbookRoomBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.unbookroom.UnbookRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.unbookroom.UnbookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicInfoBffInput;
 import com.tinqinacademy.hotelbff.api.operations.getroombasicinfo.GetRoomBasicInfoBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;

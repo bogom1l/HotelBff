@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.deletebooking;
+package com.tinqinacademy.hotelbff.api.operations.unbookroom;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotelbff.api.base.OperationInput;

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.deletebooking;
+package com.tinqinacademy.hotelbff.api.operations.unbookroom;
 
 import com.tinqinacademy.hotelbff.api.base.OperationProcessor;
 

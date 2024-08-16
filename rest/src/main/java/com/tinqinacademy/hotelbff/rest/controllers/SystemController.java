@@ -5,28 +5,28 @@ import com.tinqinacademy.hotel.api.operations.system.createroom.CreateRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
+import com.tinqinacademy.hotelbff.api.operations.registerguest.RegisterGuestBffInput;
+import com.tinqinacademy.hotelbff.api.operations.registerguest.RegisterGuestBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.HotelRestClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 public class SystemController extends BaseController {
 
     private final HotelRestClient hotelRestClient;
     private final CommentsRestClient commentsRestClient;
+    private final RegisterGuestBffOperation registerGuest;
 
-    public SystemController(HotelRestClient hotelRestClient, CommentsRestClient commentsRestClient) {
-        this.hotelRestClient = hotelRestClient;
-        this.commentsRestClient = commentsRestClient;
+
+    @PostMapping(RestApiRoutes.REGISTER_GUEST)
+    public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestBffInput input) {
+        return handle(registerGuest.process(input));
     }
-
-
-//    @PostMapping(RestApiRoutes.REGISTER_GUEST)
-//    public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestInput input) {
-//        return hotelRestClient.registerGuest(input);
-//    }
 //
 //    @GetMapping(RestApiRoutes.GET_REPORT)
 //    public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,

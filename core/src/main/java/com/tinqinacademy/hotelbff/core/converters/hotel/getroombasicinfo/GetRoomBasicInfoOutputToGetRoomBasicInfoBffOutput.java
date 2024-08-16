@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters.getroombasicinfo;
+package com.tinqinacademy.hotelbff.core.converters.hotel.getroombasicinfo;
 
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotelbff.api.enums.BathroomType;
