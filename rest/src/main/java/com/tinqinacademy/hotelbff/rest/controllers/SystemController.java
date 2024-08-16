@@ -6,6 +6,8 @@ import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffIn
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.RegisterGuestBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
@@ -22,6 +24,7 @@ public class SystemController extends BaseController {
     private final RegisterGuestBffOperation registerGuest;
     private final GetReportBffOperation getReport;
     private final CreateRoomBffOperation createRoom;
+    private final UpdateRoomBffOperation updateRoom;
 
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
@@ -60,12 +63,16 @@ public class SystemController extends BaseController {
     public ResponseEntity<?> createRoom(@RequestBody CreateRoomBffInput input) {
         return handle(createRoom.process(input));
     }
-//
-//    @PutMapping(RestApiRoutes.UPDATE_ROOM)
-//    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
-//                                        @RequestBody UpdateRoomInput input) {
-//        return hotelRestClient.updateRoom(roomId, input);
-//    }
+
+    @PutMapping(RestApiRoutes.UPDATE_ROOM)
+    public ResponseEntity<?> updateRoom(@PathVariable String roomId,
+                                        @RequestBody UpdateRoomBffInput input) {
+        UpdateRoomBffInput updatedInput = input.toBuilder()
+                .roomId(roomId)
+                .build();
+
+        return handle(updateRoom.process(updatedInput));
+    }
 //
 //    //, consumes = "application/json-patch+json"
 //    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM)

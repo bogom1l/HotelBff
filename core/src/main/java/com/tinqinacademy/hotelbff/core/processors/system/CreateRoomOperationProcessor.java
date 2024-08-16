@@ -36,6 +36,7 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
 
     private CreateRoomBffOutput createRoom(CreateRoomBffInput input) {
         log.info("Started createRoom with input: {}", input);
+        validateInput(input);
 
         CreateRoomInput inputFromHotel = conversionService.convert(input, CreateRoomInput.class);
         CreateRoomOutput outputFromHotel = hotelRestClient.createRoom(inputFromHotel);
