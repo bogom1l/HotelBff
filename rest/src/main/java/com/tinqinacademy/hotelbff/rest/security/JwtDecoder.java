@@ -14,7 +14,6 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class JwtDecoder {
-
     private final ObjectMapper objectMapper;
 
     public Map<String, Object> getPayloadFromJwt(String authorizationHeader) throws IOException {
@@ -22,9 +21,11 @@ public class JwtDecoder {
 
         String[] chunks = token.split("\\.");
 
+        // Decode the payload part from Base64 URL encoding
         Base64.Decoder decoder = Base64.getUrlDecoder();
         String payload = new String(decoder.decode(chunks[1]));
 
+        // Converts the JSON payload string into a Map<String, Object>
         return objectMapper.readValue(payload, Map.class);
     }
 }

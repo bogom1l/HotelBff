@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotelbff.core.errorhandler;
 
-
 import com.tinqinacademy.hotelbff.api.error.Error;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotelbff.api.exceptions.HotelBffException;

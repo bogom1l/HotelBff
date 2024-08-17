@@ -13,8 +13,6 @@ import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.Upda
 import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
-import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
-import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,16 +21,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class SystemController extends BaseController {
-
-    private final HotelRestClient hotelRestClient;
-    private final CommentsRestClient commentsRestClient;
     private final RegisterGuestBffOperation registerGuest;
     private final GetReportBffOperation getReport;
     private final CreateRoomBffOperation createRoom;
     private final UpdateRoomBffOperation updateRoom;
     private final UpdatePartiallyRoomBffOperation updatePartiallyRoom;
     private final DeleteRoomBffOperation deleteRoom;
-
 
     @PostMapping(RestApiRoutes.REGISTER_GUEST)
     public ResponseEntity<?> registerGuest(@RequestBody RegisterGuestBffInput input) {
@@ -82,7 +76,6 @@ public class SystemController extends BaseController {
         return handle(updateRoom.process(updatedInput));
     }
 
-    //, consumes = "application/json-patch+json"
     @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_ROOM)
     public ResponseEntity<?> updatePartiallyRoom(@PathVariable String roomId,
                                                  @RequestBody UpdatePartiallyRoomBffInput input) {
@@ -100,23 +93,4 @@ public class SystemController extends BaseController {
                 .build();
         return handle(deleteRoom.process(input));
     }
-//
-//    @GetMapping(RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME)
-//    public ResponseEntity<?> getAllUsersByPartialName(@RequestParam(required = false) String partialName) {
-//        return hotelRestClient.getAllUsersByPartialName(partialName);
-//    }
-
-    // ----- Comments -----
-
-//    @PatchMapping(RestApiRoutes.EDIT_COMMENT_ADMIN)
-//    public ResponseEntity<?> editCommentAdmin(@PathVariable String commentId,
-//                                              @RequestBody EditCommentAdminInput input) {
-//        return commentsRestClient.editCommentAdmin(commentId, input);
-//    }
-//
-//    @DeleteMapping(RestApiRoutes.DELETE_COMMENT_ADMIN)
-//    ResponseEntity<?> deleteCommentAdmin(@PathVariable String commentId) {
-//        return commentsRestClient.deleteCommentAdmin(commentId);
-//    }
-
 }
