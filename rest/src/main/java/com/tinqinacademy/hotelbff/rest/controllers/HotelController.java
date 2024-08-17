@@ -10,10 +10,13 @@ import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffI
 import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingBffInput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
 import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
+import io.swagger.v3.oas.annotations.Operation;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +36,7 @@ public class HotelController extends BaseController {
     private final BookRoomBffOperation bookRoom;
     private final UserContext userContext;
     private final UnbookRoomBffOperation unbookRoom;
+    private final UpdatePartiallyBookingBffOperation updatePartiallyBooking;
 
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
@@ -81,13 +85,17 @@ public class HotelController extends BaseController {
 
         return handle(unbookRoom.process(updatedInput));
     }
-//
-//    //, consumes = "application/json-patch+json"
-//    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
-//    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
-//                                                    @RequestBody UpdatePartiallyBookingInput input) {
-//        return hotelRestClient.updatePartiallyBooking(bookingId, input);
-//    }
+
+    @Operation(summary = "Update partially a booking")
+    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
+                                                    @RequestBody UpdatePartiallyBookingBffInput input) {
+        UpdatePartiallyBookingBffInput updatedInput = input.toBuilder()
+                .bookingId(bookingId)
+                .build();
+
+        return handle(updatePartiallyBooking.process(updatedInput));
+    }
 //
 //    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
 //    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
