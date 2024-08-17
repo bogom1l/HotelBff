@@ -15,6 +15,7 @@ import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBff
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
 import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class SystemController extends BaseController {
         return handle(registerGuest.process(input));
     }
 
+    @Operation(summary = "GET REPORT")
     @GetMapping(RestApiRoutes.GET_REPORT)
     public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
                                        @RequestParam(required = false) String endDate,

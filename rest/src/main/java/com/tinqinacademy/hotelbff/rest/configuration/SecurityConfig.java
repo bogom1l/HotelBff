@@ -7,6 +7,7 @@ import com.tinqinacademy.hotelbff.rest.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -60,7 +61,6 @@ public class SecurityConfig {
             RestApiRoutes.AUTH_CHECK_JWT,
             RestApiRoutes.BOOK_ROOM,
             RestApiRoutes.UNBOOK_ROOM,
-            RestApiRoutes.UPDATE_PARTIALLY_BOOKING, //todo ? user/public
             RestApiRoutes.GET_BOOKING_HISTORY
     };
 
@@ -71,7 +71,8 @@ public class SecurityConfig {
             RestApiRoutes.UPDATE_ROOM,
             RestApiRoutes.UPDATE_PARTIALLY_ROOM,
             RestApiRoutes.DELETE_ROOM,
-            RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME
+            RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME,
+            RestApiRoutes.UPDATE_PARTIALLY_BOOKING
     };
 
     @Bean
@@ -89,14 +90,37 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(PUBLIC_URLS).permitAll())
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN"))
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN"))
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) //todo necessary?
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers(PUBLIC_URLS).permitAll();
+                    authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN");
+                    authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN");
+                    authorize.anyRequest().permitAll();
+                })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
+    }
+
+    private void secureAdminEndpoints(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(HttpMethod.POST, RestApiRoutes.REGISTER_GUEST).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, RestApiRoutes.GET_REPORT).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, RestApiRoutes.CREATE_ROOM).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, RestApiRoutes.UPDATE_ROOM).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, RestApiRoutes.UPDATE_PARTIALLY_ROOM).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, RestApiRoutes.DELETE_ROOM).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, RestApiRoutes.UPDATE_PARTIALLY_BOOKING).hasRole("ADMIN")
+        );
+    }
+
+    private void secureUserEndpoints(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(HttpMethod.POST, RestApiRoutes.BOOK_ROOM).hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, RestApiRoutes.UNBOOK_ROOM).hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.GET, RestApiRoutes.AUTH_CHECK_JWT).hasAnyRole("USER", "ADMIN")
+                //.requestMatchers(HttpMethod.PATCH, RestApiRoutes.GET_BOOKING_HISTORY).hasAnyRole("USER", "ADMIN")
+        );
     }
 }

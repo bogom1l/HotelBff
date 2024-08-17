@@ -36,8 +36,8 @@ public class UpdatePartiallyBookingOperationProcessor extends BaseOperationProce
     private UpdatePartiallyBookingBffOutput updatePartiallyBooking(UpdatePartiallyBookingBffInput input) {
         log.info("Started updatePartiallyBooking with input: {}", input);
 
-        UpdatePartiallyBookingInput inputfromHotel = conversionService.convert(input, UpdatePartiallyBookingInput.class);
-        UpdatePartiallyBookingOutput outputFromHotel = hotelRestClient.updatePartiallyBooking(inputfromHotel.getBookingId(), inputfromHotel);
+        UpdatePartiallyBookingInput inputFromHotel = conversionService.convert(input, UpdatePartiallyBookingInput.class);
+        UpdatePartiallyBookingOutput outputFromHotel = hotelRestClient.updatePartiallyBooking(inputFromHotel.getBookingId(), inputFromHotel);
         UpdatePartiallyBookingBffOutput output = conversionService.convert(outputFromHotel, UpdatePartiallyBookingBffOutput.class);
 
         log.info("Ended updatePartiallyBooking with output: {}", output);

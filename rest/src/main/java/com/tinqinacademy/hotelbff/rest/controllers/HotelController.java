@@ -21,6 +21,7 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -87,7 +88,7 @@ public class HotelController extends BaseController {
     }
 
     @Operation(summary = "Update partially a booking")
-    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)    //@PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
                                                     @RequestBody UpdatePartiallyBookingBffInput input) {
         UpdatePartiallyBookingBffInput updatedInput = input.toBuilder()

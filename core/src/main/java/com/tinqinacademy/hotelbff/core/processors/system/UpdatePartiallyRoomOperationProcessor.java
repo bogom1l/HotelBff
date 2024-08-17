@@ -2,15 +2,10 @@ package com.tinqinacademy.hotelbff.core.processors.system;
 
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomInput;
 import com.tinqinacademy.hotel.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomOutput;
-import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomInput;
-import com.tinqinacademy.hotel.api.operations.system.updateroom.UpdateRoomOutput;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom.UpdatePartiallyRoomBffOutput;
-import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffInput;
-import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffOperation;
-import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffOutput;
 import com.tinqinacademy.hotelbff.core.errorhandler.ErrorHandler;
 import com.tinqinacademy.hotelbff.core.processors.base.BaseOperationProcessor;
 import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
@@ -24,10 +19,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class UpdateParitallyRoomOperationProcessor extends BaseOperationProcessor<UpdatePartiallyRoomBffInput> implements UpdatePartiallyRoomBffOperation {
+public class UpdatePartiallyRoomOperationProcessor extends BaseOperationProcessor<UpdatePartiallyRoomBffInput> implements UpdatePartiallyRoomBffOperation {
     private final HotelRestClient hotelRestClient;
 
-    protected UpdateParitallyRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, HotelRestClient hotelRestClient) {
+    protected UpdatePartiallyRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, HotelRestClient hotelRestClient) {
         super(conversionService, errorHandler, validator);
         this.hotelRestClient = hotelRestClient;
     }
