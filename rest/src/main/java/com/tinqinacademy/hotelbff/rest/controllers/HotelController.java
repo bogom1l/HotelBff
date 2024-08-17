@@ -1,11 +1,14 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
+import com.tinqinacademy.hotel.api.operations.hotel.getbookinghistory.GetBookingHistoryInput;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
 import com.tinqinacademy.hotelbff.api.operations.hotel.bookroom.BookRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.bookroom.BookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.getbookinghistory.GetBookingHistoryBffInput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.getbookinghistory.GetBookingHistoryBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoBffInput;
@@ -38,6 +41,7 @@ public class HotelController extends BaseController {
     private final UserContext userContext;
     private final UnbookRoomBffOperation unbookRoom;
     private final UpdatePartiallyBookingBffOperation updatePartiallyBooking;
+    private final GetBookingHistoryBffOperation getBookingHistory;
 
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
@@ -97,13 +101,22 @@ public class HotelController extends BaseController {
 
         return handle(updatePartiallyBooking.process(updatedInput));
     }
-//
-//    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
-//    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
-//        return hotelRestClient.getBookingHistory(phoneNumber);
-//    }
+
+    @Operation(summary = "Get booking history")
+    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
+    public ResponseEntity<?> getBookingHistory(@PathVariable String userId) {
+
+        GetBookingHistoryBffInput input = GetBookingHistoryBffInput.builder()
+                .userContextId(userId)
+                .build();
+
+        var asd = getBookingHistory.process(input);
+
+        return handle(asd);
+    }
 
     //------- Comments -------
+    //todo - in new Controller
 
 //    @GetMapping(RestApiRoutes.GET_ALL_COMMENTS)
 //    public ResponseEntity<?> getAllComments(@PathVariable String roomId) {

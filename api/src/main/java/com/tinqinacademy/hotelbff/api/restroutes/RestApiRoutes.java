@@ -11,7 +11,7 @@ public class RestApiRoutes {
     public static final String BOOK_ROOM = API_HOTEL + "/{roomId}";
     public static final String UNBOOK_ROOM = API_HOTEL + "/{bookingId}";
     public static final String UPDATE_PARTIALLY_BOOKING = API_HOTEL + "/{bookingId}";
-    public static final String GET_BOOKING_HISTORY = API_HOTEL + "/history/{phoneNumber}";
+    public static final String GET_BOOKING_HISTORY = API_HOTEL + "/history/{userId}";
 
     public static final String REGISTER_GUEST = API_SYSTEM + "/register";
     public static final String GET_REPORT = API_SYSTEM + "/register";
