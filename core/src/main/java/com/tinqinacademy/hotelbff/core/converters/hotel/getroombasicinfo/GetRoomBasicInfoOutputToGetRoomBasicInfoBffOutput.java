@@ -15,7 +15,7 @@ public class GetRoomBasicInfoOutputToGetRoomBasicInfoBffOutput implements Conver
     public GetRoomBasicInfoBffOutput convert(GetRoomBasicInfoOutput source) {
         log.info("Started Converter - GetRoomBasicInfoOutput to GetRoomBasicInfoBffOutput");
 
-        GetRoomBasicInfoBffOutput output = GetRoomBasicInfoBffOutput.builder()
+        GetRoomBasicInfoBffOutput target = GetRoomBasicInfoBffOutput.builder()
                 .id(source.getId())
                 .price(source.getPrice())
                 .floor(source.getFloor())
@@ -26,6 +26,6 @@ public class GetRoomBasicInfoOutputToGetRoomBasicInfoBffOutput implements Conver
                 .build();
 
         log.info("Ended Converter - GetRoomBasicInfoOutput to GetRoomBasicInfoBffOutput");
-        return output;
+        return target;
     }
 }

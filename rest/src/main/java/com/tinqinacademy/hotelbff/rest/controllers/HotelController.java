@@ -6,14 +6,17 @@ import com.tinqinacademy.hotelbff.api.operations.hotel.bookroom.BookRoomBffOpera
 import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.checkavailableroom.CheckAvailableRoomBffOutput;
-import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffInput;
-import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.hotel.getbookinghistory.GetBookingHistoryBffInput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.getbookinghistory.GetBookingHistoryBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffInput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.unbookroom.UnbookRoomBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingBffInput;
+import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
-import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
-import com.tinqinacademy.hotelbff.domain.feignclients.HotelRestClient;
 import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
+import io.swagger.v3.oas.annotations.Operation;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,15 +28,13 @@ import java.time.LocalDate;
 @RestController
 @RequiredArgsConstructor
 public class HotelController extends BaseController {
-
-    private final HotelRestClient hotelRestClient;
-    private final CommentsRestClient commentsRestClient;
     private final CheckAvailableRoomBffOperation checkAvailableRoom;
     private final GetRoomBasicInfoBffOperation getRoomBasicInfo;
     private final BookRoomBffOperation bookRoom;
     private final UserContext userContext;
     private final UnbookRoomBffOperation unbookRoom;
-
+    private final UpdatePartiallyBookingBffOperation updatePartiallyBooking;
+    private final GetBookingHistoryBffOperation getBookingHistory;
 
     @GetMapping(RestApiRoutes.CHECK_ROOM_AVAILABILITY)
     public ResponseEntity<?> checkAvailableRoom(@RequestParam(required = false) LocalDate startDate,
@@ -81,36 +82,26 @@ public class HotelController extends BaseController {
 
         return handle(unbookRoom.process(updatedInput));
     }
-//
-//    //, consumes = "application/json-patch+json"
-//    @PatchMapping(value = RestApiRoutes.UPDATE_PARTIALLY_BOOKING)
-//    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
-//                                                    @RequestBody UpdatePartiallyBookingInput input) {
-//        return hotelRestClient.updatePartiallyBooking(bookingId, input);
-//    }
-//
-//    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
-//    public ResponseEntity<?> getBookingHistory(@PathVariable String phoneNumber) {
-//        return hotelRestClient.getBookingHistory(phoneNumber);
-//    }
 
-    //------- Comments -------
+    @Operation(summary = "Update partially a booking")
+    @PatchMapping(RestApiRoutes.UPDATE_PARTIALLY_BOOKING)    //@PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> updatePartiallyBooking(@PathVariable String bookingId,
+                                                    @RequestBody UpdatePartiallyBookingBffInput input) {
+        UpdatePartiallyBookingBffInput updatedInput = input.toBuilder()
+                .bookingId(bookingId)
+                .build();
 
-//    @GetMapping(RestApiRoutes.GET_ALL_COMMENTS)
-//    public ResponseEntity<?> getAllComments(@PathVariable String roomId) {
-//        return commentsRestClient.getAllComments(roomId);
-//    }
-//
-//    @PostMapping(RestApiRoutes.ADD_COMMENT)
-//    public ResponseEntity<?> addComment(@PathVariable String roomId,
-//                                        @RequestBody AddCommentInput input) {
-//        return commentsRestClient.addComment(roomId, input);
-//    }
-//
-//    @PutMapping(RestApiRoutes.EDIT_COMMENT)
-//    public ResponseEntity<?> editComment(@PathVariable String commentId,
-//                                         @RequestBody EditCommentInput input) {
-//        return commentsRestClient.editComment(commentId, input);
-//    }
+        return handle(updatePartiallyBooking.process(updatedInput));
+    }
+
+    @Operation(summary = "Get booking history")
+    @GetMapping(RestApiRoutes.GET_BOOKING_HISTORY)
+    public ResponseEntity<?> getBookingHistory(@PathVariable String userId) {
+        GetBookingHistoryBffInput input = GetBookingHistoryBffInput.builder()
+                .userContextId(userId)
+                .build();
+
+        return handle(getBookingHistory.process(input));
+    }
 
 }

@@ -14,13 +14,13 @@ public class BookRoomBffInputToBookRoomInput implements Converter<BookRoomBffInp
     public BookRoomInput convert(BookRoomBffInput source) {
         log.info("Started Converter - BookRoomBffInput to BookRoomInput");
 
-        BookRoomInput output = BookRoomInput.builder()
+        BookRoomInput target = BookRoomInput.builder()
                 .startDate(source.getStartDate())
                 .endDate(source.getEndDate())
                 .userId(source.getUserContextId())
                 .build();
 
         log.info("Ended Converter - BookRoomBffInput to BookRoomInput");
-        return output;
+        return target;
     }
 }

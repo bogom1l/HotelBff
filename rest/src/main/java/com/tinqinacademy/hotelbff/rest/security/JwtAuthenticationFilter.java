@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,12 +32,13 @@ import java.util.Map;
  * It sets the user context in the SecurityContextHolder with the created token.
  * This makes user information accessible throughout the request lifecycle for authorization checks within controllers or other components.
  * If any error occurs during processing, the request continues without authentication.
-
+ * <p>
  * Overall, this filter ensures that only requests with valid JWT tokens have access to the Hotel BFF application endpoints.
  */
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtDecoder jwtDecoder;
@@ -71,6 +73,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(customAuthenticationToken);
                 userContext.setUserId(userId);
+                log.info("UserContext's userId and JWT's userId for the current request: {} , {}", userId, userContext.getUserId());
             } catch (Exception e) {
                 filterChain.doFilter(request, response);
                 return;
@@ -87,5 +90,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
         return null;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters.system;
+package com.tinqinacademy.hotelbff.core.converters.system.registerguest;
 
 import com.tinqinacademy.hotel.api.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotelbff.api.operations.system.registerguest.GuestBffInput;
@@ -13,7 +13,7 @@ public class GuestBffInputToGuestInput implements Converter<GuestBffInput, Guest
     public GuestInput convert(GuestBffInput source) {
         log.info("Started Converter - GuestBffInput to GuestInput");
 
-        GuestInput output = GuestInput.builder()
+        GuestInput target = GuestInput.builder()
                 .startDate(source.getStartDate())
                 .endDate(source.getEndDate())
                 .firstName(source.getFirstName())
@@ -27,6 +27,6 @@ public class GuestBffInputToGuestInput implements Converter<GuestBffInput, Guest
                 .build();
 
         log.info("Ended Converter - GuestBffInput to GuestInput");
-        return output;
+        return target;
     }
 }

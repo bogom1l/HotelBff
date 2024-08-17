@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-//@SpringBootApplication
 @ComponentScan(basePackages = "com.tinqinacademy.hotelbff")
 @EnableFeignClients(basePackages = "com.tinqinacademy.hotelbff.domain.feignclients")
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})

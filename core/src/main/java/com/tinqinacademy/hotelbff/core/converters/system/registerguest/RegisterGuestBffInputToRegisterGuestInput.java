@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.core.converters.system;
+package com.tinqinacademy.hotelbff.core.converters.system.registerguest;
 
 import com.tinqinacademy.hotel.api.operations.system.registerguest.GuestInput;
 import com.tinqinacademy.hotel.api.operations.system.registerguest.RegisterGuestInput;
@@ -30,12 +30,12 @@ public class RegisterGuestBffInputToRegisterGuestInput implements Converter<Regi
                 .map(guest -> conversionService.convert(guest, GuestInput.class))
                 .toList();
 
-        RegisterGuestInput output = RegisterGuestInput.builder()
+        RegisterGuestInput target = RegisterGuestInput.builder()
                 .guests(guests)
                 .roomId(source.getRoomId())
                 .build();
 
         log.info("Ended Converter - RegisterGuestBffInput to RegisterGuestInput");
-        return output;
+        return target;
     }
 }

@@ -11,7 +11,7 @@ public class RestApiRoutes {
     public static final String BOOK_ROOM = API_HOTEL + "/{roomId}";
     public static final String UNBOOK_ROOM = API_HOTEL + "/{bookingId}";
     public static final String UPDATE_PARTIALLY_BOOKING = API_HOTEL + "/{bookingId}";
-    public static final String GET_BOOKING_HISTORY = API_HOTEL + "/history/{phoneNumber}";
+    public static final String GET_BOOKING_HISTORY = API_HOTEL + "/history/{userId}";
 
     public static final String REGISTER_GUEST = API_SYSTEM + "/register";
     public static final String GET_REPORT = API_SYSTEM + "/register";
@@ -21,6 +21,8 @@ public class RestApiRoutes {
     public static final String DELETE_ROOM = API_SYSTEM + "/room/{roomId}";
     public static final String GET_ALL_USERS_BY_PARTIAL_NAME = API_SYSTEM + "/allUsers";
 
+    public final static String AUTH_CHECK_JWT = API_AUTH + "/validate-jwt";
+
     private static final String COMMENT = "/comment";
 
     public static final String GET_ALL_COMMENTS = API_HOTEL + "/{roomId}" + COMMENT;
@@ -29,6 +31,4 @@ public class RestApiRoutes {
 
     public static final String EDIT_COMMENT_ADMIN = API_SYSTEM + COMMENT + "/{commentId}";
     public static final String DELETE_COMMENT_ADMIN = API_SYSTEM + COMMENT + "/{commentId}";
-
-    public final static String AUTH_CHECK_JWT = API_AUTH + "/validate-jwt";
 }

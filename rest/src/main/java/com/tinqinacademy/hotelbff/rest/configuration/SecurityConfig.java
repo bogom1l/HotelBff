@@ -47,7 +47,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -59,9 +58,7 @@ public class SecurityConfig {
     private final String[] USER_ONLY_URLS = {
             RestApiRoutes.AUTH_CHECK_JWT,
             RestApiRoutes.BOOK_ROOM,
-            RestApiRoutes.UNBOOK_ROOM,
-            RestApiRoutes.UPDATE_PARTIALLY_BOOKING, //todo ? user/public
-            RestApiRoutes.GET_BOOKING_HISTORY
+            RestApiRoutes.UNBOOK_ROOM
     };
 
     private final String[] ADMIN_ONLY_URLS = {
@@ -71,12 +68,13 @@ public class SecurityConfig {
             RestApiRoutes.UPDATE_ROOM,
             RestApiRoutes.UPDATE_PARTIALLY_ROOM,
             RestApiRoutes.DELETE_ROOM,
-            RestApiRoutes.GET_ALL_USERS_BY_PARTIAL_NAME
+            RestApiRoutes.UPDATE_PARTIALLY_BOOKING,
+            RestApiRoutes.GET_BOOKING_HISTORY
     };
 
     @Bean
     public UserDetailsService emptyDetailsService() {
-        // This will stop spring security to create a password from console
+        // This stops Spring Security to create the default password from console
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -89,10 +87,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(PUBLIC_URLS).permitAll())
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN"))
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN"))
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll()) //todo necessary?
+                .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers(PUBLIC_URLS).permitAll();
+                    authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN");
+                    authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN");
+                    authorize.anyRequest().permitAll();
+                })
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

@@ -12,8 +12,10 @@ public class BookRoomOutputToBookRoomBffOutput implements Converter<BookRoomOutp
     @Override
     public BookRoomBffOutput convert(BookRoomOutput source) {
         log.info("Started Converter - BookRoomOutput to BookRoomBffOutput");
-        BookRoomBffOutput output = BookRoomBffOutput.builder().build();
+
+        BookRoomBffOutput target = BookRoomBffOutput.builder().build();
+
         log.info("Ended Converter - BookRoomOutput to BookRoomBffOutput");
-        return output;
+        return target;
     }
 }
