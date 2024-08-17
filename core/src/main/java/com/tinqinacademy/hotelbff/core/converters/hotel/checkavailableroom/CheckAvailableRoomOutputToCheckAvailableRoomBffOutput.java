@@ -13,11 +13,11 @@ public class CheckAvailableRoomOutputToCheckAvailableRoomBffOutput implements Co
     public CheckAvailableRoomBffOutput convert(CheckAvailableRoomOutput source) {
         log.info("Started Converter - CheckAvailableRoomOutput to CheckAvailableRoomBffOutput");
 
-        CheckAvailableRoomBffOutput output = CheckAvailableRoomBffOutput.builder()
+        CheckAvailableRoomBffOutput target = CheckAvailableRoomBffOutput.builder()
                 .ids(source.getIds())
                 .build();
 
         log.info("Ended Converter - CheckAvailableRoomOutput to CheckAvailableRoomBffOutput");
-        return output;
+        return target;
     }
 }

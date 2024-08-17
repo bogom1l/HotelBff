@@ -14,12 +14,12 @@ public class UnbookRoomBffInputToUnbookRoomInput implements Converter<UnbookRoom
 
         log.info("Started Converter - UnbookRoomBffInput to UnbookRoomInput");
 
-        UnbookRoomInput output = UnbookRoomInput.builder()
+        UnbookRoomInput target = UnbookRoomInput.builder()
                 .bookingId(source.getBookingId())
                 .userId(source.getUserContextId())
                 .build();
 
         log.info("Ended Converter - UnbookRoomBffInput to UnbookRoomInput");
-        return output;
+        return target;
     }
 }

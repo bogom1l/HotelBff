@@ -13,7 +13,7 @@ public class GuestBffInputToGuestInput implements Converter<GuestBffInput, Guest
     public GuestInput convert(GuestBffInput source) {
         log.info("Started Converter - GuestBffInput to GuestInput");
 
-        GuestInput output = GuestInput.builder()
+        GuestInput target = GuestInput.builder()
                 .startDate(source.getStartDate())
                 .endDate(source.getEndDate())
                 .firstName(source.getFirstName())
@@ -27,6 +27,6 @@ public class GuestBffInputToGuestInput implements Converter<GuestBffInput, Guest
                 .build();
 
         log.info("Ended Converter - GuestBffInput to GuestInput");
-        return output;
+        return target;
     }
 }

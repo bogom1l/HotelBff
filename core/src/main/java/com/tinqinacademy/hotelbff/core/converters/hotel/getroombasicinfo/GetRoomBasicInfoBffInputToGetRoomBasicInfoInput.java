@@ -13,11 +13,11 @@ public class GetRoomBasicInfoBffInputToGetRoomBasicInfoInput implements Converte
     public GetRoomBasicInfoInput convert(GetRoomBasicInfoBffInput source) {
         log.info("Started Converter - GetRoomBasicInfoBffInput to GetRoomBasicInfoInput");
 
-        GetRoomBasicInfoInput output = GetRoomBasicInfoInput.builder()
+        GetRoomBasicInfoInput target = GetRoomBasicInfoInput.builder()
                 .roomId(source.getRoomId())
                 .build();
 
         log.info("Ended Converter - GetRoomBasicInfoBffInput to GetRoomBasicInfoInput");
-        return output;
+        return target;
     }
 }

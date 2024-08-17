@@ -13,9 +13,9 @@ public class RegisterGuestOutputToRegisterGuestBffOutput implements Converter<Re
     public RegisterGuestBffOutput convert(RegisterGuestOutput source) {
         log.info("Started Converter - RegisterGuestOutput to RegisterGuestBffOutput");
 
-        RegisterGuestBffOutput output = RegisterGuestBffOutput.builder().build();
+        RegisterGuestBffOutput target = RegisterGuestBffOutput.builder().build();
 
         log.info("Ended Converter - RegisterGuestOutput to RegisterGuestBffOutput");
-        return output;
+        return target;
     }
 }

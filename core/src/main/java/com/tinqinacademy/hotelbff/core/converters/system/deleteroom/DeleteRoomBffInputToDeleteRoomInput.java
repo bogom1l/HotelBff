@@ -14,11 +14,11 @@ public class DeleteRoomBffInputToDeleteRoomInput implements Converter<DeleteRoom
     public DeleteRoomInput convert(DeleteRoomBffInput source) {
         log.info("Started Converter - DeleteRoomBffInput to DeleteRoomInput");
 
-        DeleteRoomInput deleteRoomInput = DeleteRoomInput.builder()
+        DeleteRoomInput target = DeleteRoomInput.builder()
                 .id(source.getId())
                 .build();
 
         log.info("Ended Converter - DeleteRoomBffInput to DeleteRoomInput");
-        return deleteRoomInput;
+        return target;
     }
 }

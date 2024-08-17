@@ -13,7 +13,7 @@ public class GetBookingHistoryGuestOutputToGuestBffOutput implements Converter<G
     public GuestBffOutput convert(GetBookingHistoryGuestOutput source) {
         log.info("Started Converter - GetBookingHistoryGuestOutput to GuestBffOutput");
 
-        GuestBffOutput guestBffOutput = GuestBffOutput.builder()
+        GuestBffOutput target = GuestBffOutput.builder()
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .phoneNumber(source.getPhoneNumber())
@@ -21,6 +21,6 @@ public class GetBookingHistoryGuestOutputToGuestBffOutput implements Converter<G
                 .build();
 
         log.info("Ended Converter - GetBookingHistoryGuestOutput to GuestBffOutput");
-        return guestBffOutput;
+        return target;
     }
 }

@@ -13,13 +13,13 @@ public class GetBookingHistoryRoomOutputToRoomBffOutput implements Converter<Get
     public RoomBffOutput convert(GetBookingHistoryRoomOutput source) {
         log.info("Started Converter - GetBookingHistoryRoomOutput to RoomBffOutput");
 
-        RoomBffOutput roomBffOutput = RoomBffOutput.builder()
+        RoomBffOutput target = RoomBffOutput.builder()
                 .roomNumber(source.getRoomNumber())
                 .roomPrice(source.getRoomPrice())
                 .roomFloor(source.getRoomFloor())
                 .build();
 
         log.info("Ended Converter - GetBookingHistoryRoomOutput to RoomBffOutput");
-        return roomBffOutput;
+        return target;
     }
 }

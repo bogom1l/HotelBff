@@ -14,7 +14,7 @@ public class CheckAvailableRoomBffInputToCheckAvailableRoomInput implements Conv
     public CheckAvailableRoomInput convert(CheckAvailableRoomBffInput source) {
         log.info("Started Converter - CheckAvailableRoomBffInput to CheckAvailableRoomInput");
 
-        CheckAvailableRoomInput output = CheckAvailableRoomInput.builder()
+        CheckAvailableRoomInput target = CheckAvailableRoomInput.builder()
                 .startDate(source.getStartDate())
                 .endDate(source.getEndDate())
                 .bedSize(source.getBedSize())
@@ -22,6 +22,6 @@ public class CheckAvailableRoomBffInputToCheckAvailableRoomInput implements Conv
                 .build();
 
         log.info("Ended Converter - CheckAvailableRoomBffInput to CheckAvailableRoomInput");
-        return output;
+        return target;
     }
 }
