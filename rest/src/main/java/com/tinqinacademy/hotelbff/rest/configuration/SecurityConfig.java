@@ -72,9 +72,14 @@ public class SecurityConfig {
             RestApiRoutes.GET_BOOKING_HISTORY
     };
 
+    /**
+     *  Prevent Spring Security from attempting to create or manage local user accounts,
+     *   as the application relies solely on JWT tokens for authentication.
+
+     *  This stops Spring Security to create the default password from console.
+     */
     @Bean
     public UserDetailsService emptyDetailsService() {
-        // This stops Spring Security to create the default password from console
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

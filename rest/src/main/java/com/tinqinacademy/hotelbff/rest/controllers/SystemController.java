@@ -91,6 +91,7 @@ public class SystemController extends BaseController {
         DeleteRoomBffInput input = DeleteRoomBffInput.builder()
                 .id(id)
                 .build();
+
         return handle(deleteRoom.process(input));
     }
 }
