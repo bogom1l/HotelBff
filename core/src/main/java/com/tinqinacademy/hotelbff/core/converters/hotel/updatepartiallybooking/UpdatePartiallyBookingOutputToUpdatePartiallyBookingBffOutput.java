@@ -5,7 +5,6 @@ import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.Up
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 @Slf4j

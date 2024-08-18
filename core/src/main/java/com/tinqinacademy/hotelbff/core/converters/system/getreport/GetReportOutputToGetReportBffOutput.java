@@ -14,7 +14,6 @@ import java.util.List;
 @Component
 @Slf4j
 public class GetReportOutputToGetReportBffOutput implements Converter<GetReportOutput, GetReportBffOutput> {
-
     private final ConversionService conversionService;
 
     @Lazy

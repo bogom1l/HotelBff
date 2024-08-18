@@ -14,7 +14,6 @@ import java.util.List;
 @Component
 @Slf4j
 public class RegisterGuestBffInputToRegisterGuestInput implements Converter<RegisterGuestBffInput, RegisterGuestInput> {
-
     private final ConversionService conversionService;
 
     @Lazy

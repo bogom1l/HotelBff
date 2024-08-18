@@ -38,8 +38,8 @@ public class ErrorHandler {
                 .field(violation.getField())
                 .message(violation.getMessage())
                 .build()));
-        return HttpStatus.BAD_REQUEST;
 
+        return HttpStatus.BAD_REQUEST;
     }
 
     private HttpStatus handleMethodArgumentNotValidException(MethodArgumentNotValidException ex, List<Error> errors) {
@@ -49,16 +49,19 @@ public class ErrorHandler {
                                 .field(error.getField())
                                 .message(error.getDefaultMessage())
                                 .build()));
+
         return HttpStatus.BAD_REQUEST;
     }
 
     private HttpStatus handleHotelBffException(HotelBffException ex, List<Error> errors) {
         errors.add(Error.builder().message(ex.getMessage()).build());
+
         return HttpStatus.NOT_FOUND;
     }
 
     private HttpStatus handleGenericException(Throwable ex, List<Error> errors) {
         errors.add(Error.builder().message(ex.getMessage()).build());
+
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 }
