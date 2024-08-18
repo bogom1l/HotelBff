@@ -11,7 +11,6 @@ import lombok.*;
 @Builder(toBuilder = true)
 @ToString
 public class GetBookingHistoryBffInput implements OperationInput {
-
     @JsonIgnore
     private String userContextId;
 }

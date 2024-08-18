@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotelbff.api.operations.system.updatepartiallyroom;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotelbff.api.base.OperationInput;
 import com.tinqinacademy.hotelbff.api.validation.bathroomtype.BathroomTypeValidation;

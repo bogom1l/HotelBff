@@ -13,26 +13,18 @@ import lombok.*;
 public class GetReportBffInput implements OperationInput {
     //booking
     private String startDate;
-
     private String endDate;
 
     //guest
     private String firstName;
-
     private String lastName;
-
     private String phoneNumber;
-
     private String idCardNumber;
-
     private String idCardValidity;
-
     private String idCardIssueAuthority;
-
     private String idCardIssueDate;
 
     //room
     @RoomNumberValidation(optional = true)
     private String roomNumber;
-
 }
