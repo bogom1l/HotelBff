@@ -14,6 +14,8 @@ import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBff
 import com.tinqinacademy.hotelbff.api.operations.system.updateroom.UpdateRoomBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,11 @@ public class SystemController extends BaseController {
     }
 
     @Operation(summary = "GET REPORT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Report retrieved successfully"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Not found")
+    })
     @GetMapping(RestApiRoutes.GET_REPORT)
     public ResponseEntity<?> getReport(@RequestParam(required = false) String startDate,
                                        @RequestParam(required = false) String endDate,
