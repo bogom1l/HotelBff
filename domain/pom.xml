@@ -17,19 +17,19 @@
         <dependency>
             <groupId>com.tinqinacademy.hotel</groupId>
             <artifactId>restexport</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${hotel.rest-export.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.tinqinacademy.comments</groupId>
             <artifactId>restexport</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${comments.rest-export.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.tinqinacademy.authentication</groupId>
             <artifactId>restexport</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${auth.rest-export.version}</version>
         </dependency>
 
     </dependencies>
