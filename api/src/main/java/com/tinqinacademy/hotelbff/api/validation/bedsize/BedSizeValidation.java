@@ -8,9 +8,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.FIELD) // the annotation will be applied to fields
+@Target(ElementType.FIELD) // will be applied to fields
 @Retention(RetentionPolicy.RUNTIME) // will be available on runtime
-@Constraint(validatedBy = BedSizeValidator.class) // implement custom validation logic from the class
+@Constraint(validatedBy = BedSizeValidator.class) // implement custom validation logic from the BedSizeValidator class
 public @interface BedSizeValidation {
     String message() default "Invalid bed size";
 

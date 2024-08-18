@@ -24,11 +24,11 @@ public class UpdatePartiallyBookingBffInput implements OperationInput {
 
     private String endDate;
 
-    @RoomNumberValidation(optional = true)
-    private String roomNumber;
-
     @Positive
     private BigDecimal totalPrice;
+
+    @RoomNumberValidation(optional = true)
+    private String roomNumber;
 
     private List<@Valid UpdatePartiallyGuestBffInput> guests;
 }

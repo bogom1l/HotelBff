@@ -1,7 +1,4 @@
 TODO:
 
 ❌ updatePartiallyBooking's authorization doesn't work. it should be admin only, but it's not
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-❌ Implement the processors logic for all endpoints in other microservices
+   (bug might be something from SecurityConfig?)

@@ -3,7 +3,6 @@ package com.tinqinacademy.hotelbff.core.processors.system;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportInput;
 import com.tinqinacademy.hotel.api.operations.system.getreport.GetReportOutput;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
-import com.tinqinacademy.hotelbff.api.exceptions.HotelBffException;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffInput;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.system.getreport.GetReportBffOutput;
@@ -15,7 +14,6 @@ import io.vavr.control.Try;
 import jakarta.validation.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -54,7 +52,7 @@ public class GetReportOperationProcessor extends BaseOperationProcessor<GetRepor
                 inputFromHotel.getRoomNumber());
 
         GetReportBffOutput output = conversionService.convert(outputFromHotel, GetReportBffOutput.class);
-        
+
         log.info("Ended getReport with output: {}", output);
         return output;
     }

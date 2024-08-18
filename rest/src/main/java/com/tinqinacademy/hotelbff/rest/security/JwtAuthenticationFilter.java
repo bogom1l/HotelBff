@@ -35,12 +35,10 @@ import java.util.Map;
  * <p>
  * Overall, this filter ensures that only requests with valid JWT tokens have access to the Hotel BFF application endpoints.
  */
-
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
     private final JwtDecoder jwtDecoder;
     private final AuthRestClient authRestClient;
     private final UserContext userContext;
@@ -58,26 +56,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = getToken(request);
 
-        if (token != null && !token.isEmpty() && validateJwtOutput.getIsValid()) {
-            try {
-                Map<String, Object> payloadMap = jwtDecoder.getPayloadFromJwt(token);
+        if (token == null || token.isEmpty() || !validateJwtOutput.getIsValid()) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-                String userId = (String) payloadMap.get("sub");
-                String role = (String) payloadMap.get("role");
-                GrantedAuthority authority = new SimpleGrantedAuthority(role);
+        try {
+            Map<String, String> payload = jwtDecoder.getPayloadFromJwt(token);
+            String userId = payload.get("sub");
+            String role = payload.get("role");
 
-                CustomAuthenticationToken customAuthenticationToken = new CustomAuthenticationToken(
-                        List.of(authority), userId
-                );
-                customAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            GrantedAuthority authority = new SimpleGrantedAuthority(role);
 
-                SecurityContextHolder.getContext().setAuthentication(customAuthenticationToken);
-                userContext.setUserId(userId);
-                log.info("UserContext's userId and JWT's userId for the current request: {} , {}", userId, userContext.getUserId());
-            } catch (Exception e) {
-                filterChain.doFilter(request, response);
-                return;
-            }
+            CustomAuthenticationToken customAuthenticationToken = new CustomAuthenticationToken(
+                    List.of(authority), userId
+            );
+            customAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(customAuthenticationToken);
+            userContext.setUserId(userId);
+            log.warn("Current request: UserContext's userId - {} ; JWT's userId - {}", userContext.getUserId(), userId);
+        } catch (Exception e) {
+            filterChain.doFilter(request, response);
+            return;
         }
 
         filterChain.doFilter(request, response);

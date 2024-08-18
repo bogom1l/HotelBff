@@ -4,9 +4,7 @@ import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.Updat
 import com.tinqinacademy.hotel.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.UpdatePartiallyBookingBffInput;
 import com.tinqinacademy.hotelbff.api.operations.hotel.updatepartiallybooking.UpdatePartiallyGuestBffInput;
-import com.tinqinacademy.hotelbff.api.operations.system.registerguest.GuestBffInput;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -30,8 +27,6 @@ public class UpdatePartiallyBookingBffInputToUpdatePartiallyBookingInput impleme
     public UpdatePartiallyBookingInput convert(UpdatePartiallyBookingBffInput source) {
         log.info("Started Converter - UpdatePartiallyBookingBffInput to UpdatePartiallyBookingInput");
 
-
-
         UpdatePartiallyBookingInput target = UpdatePartiallyBookingInput.builder()
                 .bookingId(source.getBookingId())
                 .roomNumber(source.getRoomNumber())
@@ -43,13 +38,9 @@ public class UpdatePartiallyBookingBffInputToUpdatePartiallyBookingInput impleme
         if (source.getGuests() != null) {
             List<UpdatePartiallyGuestInput> guests = new ArrayList<>();
 
-            for(UpdatePartiallyGuestBffInput guestBffInput : source.getGuests()) {
-                try {
-                    UpdatePartiallyGuestInput guest = conversionService.convert(guestBffInput, UpdatePartiallyGuestInput.class);
-                    guests.add(guest);
-                } catch (Exception e) {
-                    log.error("Error converting guest: {}", guestBffInput, e);
-                }
+            for (UpdatePartiallyGuestBffInput guestBffInput : source.getGuests()) {
+                UpdatePartiallyGuestInput guest = conversionService.convert(guestBffInput, UpdatePartiallyGuestInput.class);
+                guests.add(guest);
             }
 
             target.setGuests(guests);

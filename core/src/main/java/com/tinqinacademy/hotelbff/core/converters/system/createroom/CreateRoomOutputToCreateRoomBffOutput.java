@@ -12,6 +12,7 @@ public class CreateRoomOutputToCreateRoomBffOutput implements Converter<CreateRo
     @Override
     public CreateRoomBffOutput convert(CreateRoomOutput source) {
         log.info("Started Converter - CreateRoomOutput to CreateRoomBffOutput");
+
         CreateRoomBffOutput target = CreateRoomBffOutput.builder()
                 .id(source.getId())
                 .build();

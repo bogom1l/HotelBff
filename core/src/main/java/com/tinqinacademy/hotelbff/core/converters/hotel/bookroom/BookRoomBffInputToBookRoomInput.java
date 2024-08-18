@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class BookRoomBffInputToBookRoomInput implements Converter<BookRoomBffInput, BookRoomInput> {
-
     @Override
     public BookRoomInput convert(BookRoomBffInput source) {
         log.info("Started Converter - BookRoomBffInput to BookRoomInput");

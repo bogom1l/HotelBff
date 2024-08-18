@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class UnbookRoomBffInputToUnbookRoomInput implements Converter<UnbookRoomBffInput, UnbookRoomInput> {
     @Override
     public UnbookRoomInput convert(UnbookRoomBffInput source) {
-
         log.info("Started Converter - UnbookRoomBffInput to UnbookRoomInput");
 
         UnbookRoomInput target = UnbookRoomInput.builder()

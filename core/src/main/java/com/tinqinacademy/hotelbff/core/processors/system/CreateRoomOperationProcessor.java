@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @Slf4j
 public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateRoomBffInput> implements CreateRoomBffOperation {
@@ -45,6 +44,4 @@ public class CreateRoomOperationProcessor extends BaseOperationProcessor<CreateR
         log.info("Ended createRoom with output: {}", output);
         return output;
     }
-
-
 }

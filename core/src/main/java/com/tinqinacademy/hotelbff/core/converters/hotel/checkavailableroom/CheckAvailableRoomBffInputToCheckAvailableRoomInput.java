@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class CheckAvailableRoomBffInputToCheckAvailableRoomInput implements Converter<CheckAvailableRoomBffInput, CheckAvailableRoomInput> {
-
     @Override
     public CheckAvailableRoomInput convert(CheckAvailableRoomBffInput source) {
         log.info("Started Converter - CheckAvailableRoomBffInput to CheckAvailableRoomInput");

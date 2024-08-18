@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @Slf4j
 public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteRoomBffInput> implements DeleteRoomBffOperation {
@@ -29,13 +28,14 @@ public class DeleteRoomOperationProcessor extends BaseOperationProcessor<DeleteR
 
     @Override
     public Either<ErrorsWrapper, DeleteRoomBffOutput> process(DeleteRoomBffInput input) {
-        return Try.of( () -> deleteRoom(input))
+        return Try.of(() -> deleteRoom(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
 
     private DeleteRoomBffOutput deleteRoom(DeleteRoomBffInput input) {
         log.info("Started deleteRoom with input: {}", input);
+        validateInput(input);
 
         DeleteRoomInput inputFromHotel = conversionService.convert(input, DeleteRoomInput.class);
         DeleteRoomOutput outputFromHotel = hotelRestClient.deleteRoom(inputFromHotel.getId());

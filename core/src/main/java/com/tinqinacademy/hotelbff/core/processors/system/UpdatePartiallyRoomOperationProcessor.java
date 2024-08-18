@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @Slf4j
 public class UpdatePartiallyRoomOperationProcessor extends BaseOperationProcessor<UpdatePartiallyRoomBffInput> implements UpdatePartiallyRoomBffOperation {
@@ -29,7 +28,7 @@ public class UpdatePartiallyRoomOperationProcessor extends BaseOperationProcesso
 
     @Override
     public Either<ErrorsWrapper, UpdatePartiallyRoomBffOutput> process(UpdatePartiallyRoomBffInput input) {
-        return Try.of( () -> updatePartiallyRoom(input))
+        return Try.of(() -> updatePartiallyRoom(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
@@ -45,5 +44,4 @@ public class UpdatePartiallyRoomOperationProcessor extends BaseOperationProcesso
         log.info("Ended updateRoom with output: {}", output);
         return output;
     }
-
 }
