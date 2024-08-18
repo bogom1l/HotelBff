@@ -1,3 +1,4 @@
 TODO:
 
 ❌ updatePartiallyBooking's authorization doesn't work. it should be admin only, but it's not
+   (bug might be something from SecurityConfig?)

@@ -29,9 +29,8 @@ public class ErrorHandler {
 
     private ErrorsWrapper handleFeignException(FeignException ex) {
         List<Error> errors = new ArrayList<>();
-        // Extract the message from the FeignException, if available
         String message = ex.contentUTF8();
-        errors.add(createError(null, message != null && !message.isEmpty() ? message : "An error occurred during the Feign client call"));
+        errors.add(createError(null, message != null && !message.isEmpty() ? message : "An error occurred during the Feign client call."));
 
         return createErrorsWrapper(errors, HttpStatus.valueOf(ex.status()));
     }

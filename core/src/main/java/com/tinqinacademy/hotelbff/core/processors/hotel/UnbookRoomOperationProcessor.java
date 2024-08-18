@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UnbookRoomOperationProcessor extends BaseOperationProcessor<UnbookRoomBffInput> implements UnbookRoomBffOperation {
-
     private final HotelRestClient hotelRestClient;
 
     protected UnbookRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, HotelRestClient hotelRestClient) {

@@ -1,6 +1,5 @@
 package com.tinqinacademy.hotelbff.core.processors.hotel;
 
-
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoInput;
 import com.tinqinacademy.hotel.api.operations.hotel.getroombasicinfo.GetRoomBasicInfoOutput;
 import com.tinqinacademy.hotelbff.api.error.ErrorsWrapper;
@@ -39,7 +38,6 @@ public class GetRoomBasicInfoOperationProcessor extends BaseOperationProcessor<G
         log.info("Started getRoomBasicInfo with input: {}", input);
         validateInput(input);
 
-        //not necessary
         GetRoomBasicInfoInput inputFromHotel = conversionService.convert(input, GetRoomBasicInfoInput.class);
         GetRoomBasicInfoOutput outputFromHotel = hotelRestClient.getRoomBasicInfo(inputFromHotel.getRoomId());
         GetRoomBasicInfoBffOutput output = conversionService.convert(outputFromHotel, GetRoomBasicInfoBffOutput.class);

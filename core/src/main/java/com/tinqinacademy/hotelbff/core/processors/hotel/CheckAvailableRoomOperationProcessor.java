@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor<CheckAvailableRoomBffInput> implements CheckAvailableRoomBffOperation {
-
     private final HotelRestClient hotelRestClient;
 
     protected CheckAvailableRoomOperationProcessor(ConversionService conversionService, ErrorHandler errorHandler, Validator validator, HotelRestClient hotelRestClient) {
@@ -38,7 +37,6 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
         log.info("Started checkAvailableRoom with input: {}", input);
         validateInput(input);
 
-        // not necessary to convert CheckAvailableRoomBffInput to CheckAvailableRoomInput
         CheckAvailableRoomInput inputFromHotel = conversionService.convert(input, CheckAvailableRoomInput.class);
 
         CheckAvailableRoomOutput outputFromHotel = hotelRestClient.checkAvailableRoom(
@@ -52,5 +50,4 @@ public class CheckAvailableRoomOperationProcessor extends BaseOperationProcessor
         log.info("Ended checkAvailableRoom with output: {}", output);
         return output;
     }
-
 }

@@ -7,7 +7,6 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.core.convert.ConversionService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,19 +26,18 @@ public abstract class BaseOperationProcessor<OperationInput> {
 
         if (!violations.isEmpty()) {
             List<Error> errors = buildErrors(violations);
-
             throw new ValidationException(errors);
         }
     }
 
     private List<Error> buildErrors(Set<ConstraintViolation<OperationInput>> violations) {
-        List<Error> errors = new ArrayList<>();
-        for (ConstraintViolation<OperationInput> violation : violations) {
-            errors.add(Error.builder()
-                    .field(violation.getPropertyPath().toString())
-                    .message(violation.getMessage())
-                    .build());
-        }
+        List<Error> errors = violations.stream()
+                .map(violation -> Error.builder()
+                        .field(violation.getPropertyPath().toString())
+                        .message(violation.getMessage())
+                        .build())
+                .toList();
+
         return errors;
     }
 }
