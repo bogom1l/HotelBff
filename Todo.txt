@@ -1,4 +1,9 @@
 TODO:
 
-❌ updatePartiallyBooking's authorization doesn't work. it should be admin only, but it's not
-   (bug might be something from SecurityConfig?)
+✔️ all endpoints to hotel
+   ❌ updatePartiallyBooking's authorization doesn't work. it should be admin only, but it's not
+      (bug might be something from SecurityConfig?)
+
+❌ all endpoints to auth
+
+❌ all endpoints to comments
