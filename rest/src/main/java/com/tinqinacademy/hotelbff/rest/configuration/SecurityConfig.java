@@ -47,19 +47,6 @@ public class SecurityConfig {
             RestApiRoutes.GET_BOOKING_HISTORY
     };
 
-
-    // Prevent Spring Security from attempting to create or manage local user accounts(the default password from console),
-    // as the application relies solely on JWT tokens for authentication.
-    @Bean
-    public UserDetailsService emptyDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                throw new HotelBffException("No local users, only JWT tokens allowed.", HttpStatus.NOT_FOUND);
-            }
-        };
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -75,5 +62,17 @@ public class SecurityConfig {
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
+    }
+
+    // Prevent Spring Security from attempting to create or manage local user accounts(the default password from console),
+    // as the application relies solely on JWT tokens for authentication.
+    @Bean
+    public UserDetailsService emptyDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                throw new HotelBffException("No local users, only JWT tokens allowed.", HttpStatus.NOT_FOUND);
+            }
+        };
     }
 }
