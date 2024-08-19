@@ -7,6 +7,7 @@ import com.tinqinacademy.hotelbff.rest.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,38 +26,25 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    private final String[] PUBLIC_URLS = {
-            RestApiRoutes.GET_ROOM_INFO,
-            RestApiRoutes.CHECK_ROOM_AVAILABILITY
-    };
-
-    private final String[] USER_ONLY_URLS = {
-            RestApiRoutes.AUTH_CHECK_JWT,
-            RestApiRoutes.BOOK_ROOM,
-            RestApiRoutes.UNBOOK_ROOM
-    };
-
-    private final String[] ADMIN_ONLY_URLS = {
-            RestApiRoutes.REGISTER_GUEST,
-            RestApiRoutes.GET_REPORT,
-            RestApiRoutes.CREATE_ROOM,
-            RestApiRoutes.UPDATE_ROOM,
-            RestApiRoutes.UPDATE_PARTIALLY_ROOM,
-            RestApiRoutes.DELETE_ROOM,
-            RestApiRoutes.UPDATE_PARTIALLY_BOOKING,
-            RestApiRoutes.GET_BOOKING_HISTORY
-    };
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers(PUBLIC_URLS).permitAll();
-                    authorize.requestMatchers(ADMIN_ONLY_URLS).hasAuthority("ADMIN");
-                    authorize.requestMatchers(USER_ONLY_URLS).hasAnyAuthority("USER", "ADMIN");
-                    authorize.anyRequest().permitAll();
-                })
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.GET, RestApiRoutes.GET_ROOM_INFO).permitAll()
+                        .requestMatchers(HttpMethod.GET, RestApiRoutes.CHECK_ROOM_AVAILABILITY).permitAll()
+                        .requestMatchers(HttpMethod.GET, RestApiRoutes.AUTH_CHECK_JWT).hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, RestApiRoutes.BOOK_ROOM).hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, RestApiRoutes.UNBOOK_ROOM).hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, RestApiRoutes.REGISTER_GUEST).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, RestApiRoutes.GET_REPORT).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, RestApiRoutes.CREATE_ROOM).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, RestApiRoutes.UPDATE_ROOM).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, RestApiRoutes.UPDATE_PARTIALLY_ROOM).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, RestApiRoutes.DELETE_ROOM).hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PATCH, RestApiRoutes.UPDATE_PARTIALLY_BOOKING).hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, RestApiRoutes.GET_BOOKING_HISTORY).hasAnyAuthority("ADMIN")
+                        .anyRequest().permitAll())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

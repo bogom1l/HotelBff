@@ -1,8 +1,9 @@
 TODO:
 
 ✔️ all endpoints to hotel
-   ❌ updatePartiallyBooking's authorization doesn't work. it should be admin only, but it's not
+   ✔️ updatePartiallyBooking's authorization doesn't work. it should be admin only, but it's not
       (bug might be something from SecurityConfig?)
+      -> add method 'POST', 'GET' in the security config for all routes (Hristo fixed it)
 
 ❌ all endpoints to auth
 
