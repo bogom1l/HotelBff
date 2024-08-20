@@ -1,3 +1,7 @@
 TODO:
 
-❌ all endpoints to comments
+✔️GetComments
+✔️AddComment
+❌EditComment
+❌EditCommentAdmin
+❌DeleteCommentAdmin

@@ -1,8 +1,8 @@
-package com.tinqinacademy.hotelbff.core.converters.comment;
+package com.tinqinacademy.hotelbff.core.converters.comment.getcomments;
 
 import com.tinqinacademy.comments.api.operations.getcomments.GetCommentsOutput;
-import com.tinqinacademy.hotelbff.api.operations.comments.CommentBffOutput;
-import com.tinqinacademy.hotelbff.api.operations.comments.GetCommentsBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.CommentBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.GetCommentsBffOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.ConversionService;

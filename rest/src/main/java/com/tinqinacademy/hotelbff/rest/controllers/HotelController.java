@@ -33,10 +33,10 @@ public class HotelController extends BaseController {
     private final CheckAvailableRoomBffOperation checkAvailableRoom;
     private final GetRoomBasicInfoBffOperation getRoomBasicInfo;
     private final BookRoomBffOperation bookRoom;
-    private final UserContext userContext;
     private final UnbookRoomBffOperation unbookRoom;
     private final UpdatePartiallyBookingBffOperation updatePartiallyBooking;
     private final GetBookingHistoryBffOperation getBookingHistory;
+    private final UserContext userContext;
 
     @Operation(summary = "Check available room",
             description = "Check room availability for a certain period")
