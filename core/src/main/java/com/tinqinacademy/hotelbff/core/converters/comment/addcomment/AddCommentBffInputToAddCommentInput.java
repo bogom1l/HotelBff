@@ -2,7 +2,7 @@ package com.tinqinacademy.hotelbff.core.converters.comment.addcomment;
 
 
 import com.tinqinacademy.comments.api.operations.addcomment.AddCommentInput;
-import com.tinqinacademy.hotelbff.api.operations.comments.addcomment.AddCommentBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBffInput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

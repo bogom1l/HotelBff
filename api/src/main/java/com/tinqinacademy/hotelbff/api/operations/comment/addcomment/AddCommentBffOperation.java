@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.comments.addcomment;
+package com.tinqinacademy.hotelbff.api.operations.comment.addcomment;
 
 import com.tinqinacademy.hotelbff.api.base.OperationProcessor;
 

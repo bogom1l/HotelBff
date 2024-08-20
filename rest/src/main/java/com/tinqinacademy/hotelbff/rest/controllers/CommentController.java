@@ -1,9 +1,11 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
-import com.tinqinacademy.hotelbff.api.operations.comments.addcomment.AddCommentBffInput;
-import com.tinqinacademy.hotelbff.api.operations.comments.addcomment.AddCommentBffOperation;
-import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.GetCommentsBffInput;
-import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.GetCommentsBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comment.editcomment.EditCommentBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comment.editcomment.EditCommentBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comment.getcomments.GetCommentsBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comment.getcomments.GetCommentsBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,14 +22,8 @@ public class CommentController extends BaseController {
 
     private final GetCommentsBffOperation getComments;
     private final AddCommentBffOperation addComment;
+    private final EditCommentBffOperation editComment;
     private final UserContext userContext;
-
-    @GetMapping("/hello")
-    public String sayHello() {
-        return "hello";
-    }
-
-//todo add @Operation and @ApiResponses
 
     @Operation(summary = "Get all comments for a room",
             description = "Get all comments for a room")
@@ -43,6 +39,12 @@ public class CommentController extends BaseController {
         return handle(getComments.process(input));
     }
 
+    @Operation(summary = "Add a comment for a room",
+            description = "Add a comment for a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successfully added comment"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
     @PostMapping(RestApiRoutes.ADD_COMMENT)
     public ResponseEntity<?> addComment(@PathVariable String roomId,
                                         @RequestBody AddCommentBffInput input) {
@@ -54,12 +56,23 @@ public class CommentController extends BaseController {
         return handleWithStatus(addComment.process(updatedInput), HttpStatus.CREATED);
     }
 
-//
-//    @PutMapping(RestApiRoutes.EDIT_COMMENT)
-//    public ResponseEntity<?> editComment(@PathVariable String commentId,
-//                                         @RequestBody EditCommentInput input) {
-//        return commentsRestClient.editComment(commentId, input);
-//    }
+
+    @Operation(summary = "Edit own comment for a room",
+            description = "Edit own comment for a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully edited comment"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
+    @PutMapping(RestApiRoutes.EDIT_COMMENT)
+    public ResponseEntity<?> editComment(@PathVariable String commentId,
+                                         @RequestBody EditCommentBffInput input) {
+       EditCommentBffInput updatedInput = input.toBuilder()
+                .commentId(commentId)
+                .userId(userContext.getUserId())
+                .build();
+
+        return handle(editComment.process(updatedInput));
+    }
 //
 //    @PatchMapping(RestApiRoutes.EDIT_COMMENT_ADMIN)
 //    public ResponseEntity<?> editCommentAdmin(@PathVariable String commentId,
