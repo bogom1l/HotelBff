@@ -43,7 +43,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    private void configureAdminEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request){
+    private void configureAdminEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request) {
         request
                 .requestMatchers(HttpMethod.POST, RestApiRoutes.REGISTER_GUEST).hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET, RestApiRoutes.GET_REPORT).hasAuthority("ADMIN")
@@ -57,7 +57,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE, RestApiRoutes.DELETE_COMMENT_ADMIN).hasAuthority("ADMIN");
     }
 
-    private void configureUserAndAdminEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request){
+    private void configureUserAndAdminEndpoints(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry request) {
         request
                 .requestMatchers(HttpMethod.GET, RestApiRoutes.AUTH_CHECK_JWT).hasAnyAuthority("USER", "ADMIN")
                 .requestMatchers(HttpMethod.POST, RestApiRoutes.BOOK_ROOM).hasAnyAuthority("USER", "ADMIN")

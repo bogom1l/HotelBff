@@ -2,6 +2,6 @@ TODO:
 
 ✔️GetComments
 ✔️AddComment
-❌EditComment
+✔️EditComment
 ❌EditCommentAdmin
 ❌DeleteCommentAdmin
