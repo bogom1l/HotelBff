@@ -1,7 +1,7 @@
-package com.tinqinacademy.hotelbff.core.converters.comment;
+package com.tinqinacademy.hotelbff.core.converters.comment.getcomments;
 
 import com.tinqinacademy.comments.api.operations.getcomments.CommentOutput;
-import com.tinqinacademy.hotelbff.api.operations.comments.CommentBffOutput;
+import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.CommentBffOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

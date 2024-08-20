@@ -1,22 +1,26 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
-import com.tinqinacademy.hotelbff.api.operations.comments.GetCommentsBffInput;
-import com.tinqinacademy.hotelbff.api.operations.comments.GetCommentsBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comments.addcomment.AddCommentBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comments.addcomment.AddCommentBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.GetCommentsBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comments.getcomments.GetCommentsBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
+import com.tinqinacademy.hotelbff.rest.configuration.UserContext;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 public class CommentController extends BaseController {
 
- private final GetCommentsBffOperation getComments;
+    private final GetCommentsBffOperation getComments;
+    private final AddCommentBffOperation addComment;
+    private final UserContext userContext;
 
     @GetMapping("/hello")
     public String sayHello() {
@@ -38,12 +42,18 @@ public class CommentController extends BaseController {
                 .build();
         return handle(getComments.process(input));
     }
-//
-//    @PostMapping(RestApiRoutes.ADD_COMMENT)
-//    public ResponseEntity<?> addComment(@PathVariable String roomId,
-//                                        @RequestBody AddCommentInput input) {
-//        return commentsRestClient.addComment(roomId, input);
-//    }
+
+    @PostMapping(RestApiRoutes.ADD_COMMENT)
+    public ResponseEntity<?> addComment(@PathVariable String roomId,
+                                        @RequestBody AddCommentBffInput input) {
+        AddCommentBffInput updatedInput = input.toBuilder()
+                .roomId(roomId)
+                .userId(userContext.getUserId())
+                .build();
+
+        return handleWithStatus(addComment.process(updatedInput), HttpStatus.CREATED);
+    }
+
 //
 //    @PutMapping(RestApiRoutes.EDIT_COMMENT)
 //    public ResponseEntity<?> editComment(@PathVariable String commentId,

@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.comments;
+package com.tinqinacademy.hotelbff.api.operations.comments.getcomments;
 
 import com.tinqinacademy.hotelbff.api.base.OperationOutput;
 import lombok.*;
