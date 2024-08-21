@@ -2,6 +2,8 @@ package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBffInput;
 import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comment.deletecommentadmin.DeleteCommentAdminBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comment.deletecommentadmin.DeleteCommentAdminBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.comment.editcomment.EditCommentBffInput;
 import com.tinqinacademy.hotelbff.api.operations.comment.editcomment.EditCommentBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.comment.editcommentadmin.EditCommentAdminBffInput;
@@ -26,6 +28,7 @@ public class CommentController extends BaseController {
     private final AddCommentBffOperation addComment;
     private final EditCommentBffOperation editComment;
     private final EditCommentAdminBffOperation editCommentAdmin;
+    private final DeleteCommentAdminBffOperation deleteCommentAdmin;
     private final UserContext userContext;
 
     @Operation(summary = "Get all comments for a room",
@@ -69,7 +72,7 @@ public class CommentController extends BaseController {
     @PutMapping(RestApiRoutes.EDIT_COMMENT)
     public ResponseEntity<?> editComment(@PathVariable String commentId,
                                          @RequestBody EditCommentBffInput input) {
-       EditCommentBffInput updatedInput = input.toBuilder()
+        EditCommentBffInput updatedInput = input.toBuilder()
                 .commentId(commentId)
                 .userId(userContext.getUserId())
                 .build();
@@ -93,11 +96,21 @@ public class CommentController extends BaseController {
 
         return handle(editCommentAdmin.process(updatedInput));
     }
-//
-//    @DeleteMapping(RestApiRoutes.DELETE_COMMENT_ADMIN)
-//    ResponseEntity<?> deleteCommentAdmin(@PathVariable String commentId) {
-//        return commentsRestClient.deleteCommentAdmin(commentId);
-//    }
 
+    @Operation(summary = "Delete any comment for a room",
+            description = "Delete any comment for a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully deleted comment"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
+    @DeleteMapping(RestApiRoutes.DELETE_COMMENT_ADMIN)
+    ResponseEntity<?> deleteCommentAdmin(@PathVariable String commentId) {
+        DeleteCommentAdminBffInput input = DeleteCommentAdminBffInput
+                .builder()
+                .commentId(commentId)
+                .build();
+
+        return handle(deleteCommentAdmin.process(input));
+    }
 
 }
