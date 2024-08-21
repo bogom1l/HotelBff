@@ -3,5 +3,5 @@ TODO:
 ✔️GetComments
 ✔️AddComment
 ✔️EditComment
-❌EditCommentAdmin
-❌DeleteCommentAdmin
+✔️EditCommentAdmin
+✔️DeleteCommentAdmin
