@@ -36,6 +36,7 @@ public class EditCommentAdminAdminOperationProcessor extends BaseOperationProces
 
     private EditCommentAdminBffOutput editCommentAdmin(EditCommentAdminBffInput input) {
         log.info("Started editCommentAdmin with input: {}", input);
+        validateInput(input);
 
         EditCommentAdminInput inputFromComments = conversionService.convert(input, EditCommentAdminInput.class);
         EditCommentAdminOutput outputFromComments = commentsRestClient.editCommentAdmin(inputFromComments.getCommentId(), inputFromComments);

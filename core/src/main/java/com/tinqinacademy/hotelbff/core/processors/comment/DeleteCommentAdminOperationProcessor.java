@@ -40,6 +40,7 @@ public class DeleteCommentAdminOperationProcessor extends BaseOperationProcessor
 
     private DeleteCommentAdminBffOutput deleteCommentAdmin(DeleteCommentAdminBffInput input) {
         log.info("Started deleteCommentAdmin with input: {}", input);
+        validateInput(input);
 
         DeleteCommentAdminInput inputFromComments = conversionService.convert(input, DeleteCommentAdminInput.class);
         DeleteCommentAdminOutput outputFromComments = commentsRestClient.deleteCommentAdmin(inputFromComments.getCommentId());

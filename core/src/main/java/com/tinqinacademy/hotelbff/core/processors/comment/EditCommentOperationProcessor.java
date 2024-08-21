@@ -35,6 +35,7 @@ public class EditCommentOperationProcessor extends BaseOperationProcessor<EditCo
 
     private EditCommentBffOutput editComment(EditCommentBffInput input) {
         log.info("Started editComment with input: {}", input);
+        validateInput(input);
 
         EditCommentInput inputFromComments = conversionService.convert(input, EditCommentInput.class);
         EditCommentOutput outputFromComments = commentsRestClient.editComment(inputFromComments.getCommentId(), inputFromComments);
