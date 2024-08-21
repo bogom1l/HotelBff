@@ -4,6 +4,8 @@ import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBf
 import com.tinqinacademy.hotelbff.api.operations.comment.addcomment.AddCommentBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.comment.editcomment.EditCommentBffInput;
 import com.tinqinacademy.hotelbff.api.operations.comment.editcomment.EditCommentBffOperation;
+import com.tinqinacademy.hotelbff.api.operations.comment.editcommentadmin.EditCommentAdminBffInput;
+import com.tinqinacademy.hotelbff.api.operations.comment.editcommentadmin.EditCommentAdminBffOperation;
 import com.tinqinacademy.hotelbff.api.operations.comment.getcomments.GetCommentsBffInput;
 import com.tinqinacademy.hotelbff.api.operations.comment.getcomments.GetCommentsBffOperation;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
@@ -23,6 +25,7 @@ public class CommentController extends BaseController {
     private final GetCommentsBffOperation getComments;
     private final AddCommentBffOperation addComment;
     private final EditCommentBffOperation editComment;
+    private final EditCommentAdminBffOperation editCommentAdmin;
     private final UserContext userContext;
 
     @Operation(summary = "Get all comments for a room",
@@ -73,12 +76,23 @@ public class CommentController extends BaseController {
 
         return handle(editComment.process(updatedInput));
     }
-//
-//    @PatchMapping(RestApiRoutes.EDIT_COMMENT_ADMIN)
-//    public ResponseEntity<?> editCommentAdmin(@PathVariable String commentId,
-//                                              @RequestBody EditCommentAdminInput input) {
-//        return commentsRestClient.editCommentAdmin(commentId, input);
-//    }
+
+    @Operation(summary = "Edit any comment for a room",
+            description = "Edit any comment for a room")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully edited comment"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "404", description = "Room not found")})
+    @PatchMapping(RestApiRoutes.EDIT_COMMENT_ADMIN)
+    public ResponseEntity<?> editCommentAdmin(@PathVariable String commentId,
+                                              @RequestBody EditCommentAdminBffInput input) {
+        EditCommentAdminBffInput updatedInput = input.toBuilder()
+                .commentId(commentId)
+                .userId(userContext.getUserId())
+                .build();
+
+        return handle(editCommentAdmin.process(updatedInput));
+    }
 //
 //    @DeleteMapping(RestApiRoutes.DELETE_COMMENT_ADMIN)
 //    ResponseEntity<?> deleteCommentAdmin(@PathVariable String commentId) {

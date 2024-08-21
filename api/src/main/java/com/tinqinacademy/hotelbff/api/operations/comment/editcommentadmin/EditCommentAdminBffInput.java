@@ -1,4 +1,4 @@
-package com.tinqinacademy.hotelbff.api.operations.comment.editcomment;
+package com.tinqinacademy.hotelbff.api.operations.comment.editcommentadmin;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tinqinacademy.hotelbff.api.base.OperationInput;
@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 @ToString
-public class EditCommentBffInput implements OperationInput {
+public class EditCommentAdminBffInput implements OperationInput {
     @JsonIgnore
     private String commentId;
 
@@ -20,4 +20,6 @@ public class EditCommentBffInput implements OperationInput {
 
     @NotBlank
     private String content;
+
+    //todo? private String roomNumber;
 }
