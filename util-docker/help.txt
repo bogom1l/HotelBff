@@ -1,0 +1,5 @@
+each microservice must have its Dockerfile
+1 docker-compose.yml runs all 4 microservices and the database server
+docker-compose up -d
+docker-compose down
+then delete the images from Docker Desktop
