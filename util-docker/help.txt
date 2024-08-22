@@ -3,3 +3,4 @@ each microservice must have its Dockerfile
 docker-compose up -d
 docker-compose down
 then delete the images from Docker Desktop
+ * docker rmi databases-auth-service databases-hotel-service databases-comments-service databases-bff-service
