@@ -31,7 +31,7 @@ public class GetAllCommentsOperationProcessor extends BaseOperationProcessor<Get
 
     @Override
     public Either<ErrorsWrapper, GetCommentsBffOutput> process(GetCommentsBffInput input) {
-        return Try.of( () -> getComments(input))
+        return Try.of(() -> getComments(input))
                 .toEither()
                 .mapLeft(errorHandler::handleErrors);
     }
