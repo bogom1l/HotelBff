@@ -4,6 +4,6 @@ import com.tinqinacademy.hotelbff.domain.feignclients.config.FeignConfig;
 import com.tinqinacademy.restexport.CommentsRestExportClient;
 import org.springframework.cloud.openfeign.FeignClient;
 
-@FeignClient(name = "comments", url = "http://localhost:8082", configuration = FeignConfig.class)
+@FeignClient(name = "comments", url = "${feign.client.config.comments.url}", configuration = FeignConfig.class)
 public interface CommentsRestClient extends CommentsRestExportClient {
 }
