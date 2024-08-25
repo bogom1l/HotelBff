@@ -82,17 +82,14 @@ class HotelControllerTest {
         String userId = UUID.randomUUID().toString();
 
         BookRoomInput bookRoomInput = BookRoomInput.builder()
-                .startDate(LocalDate.of(2026, 11, 11))
-                .endDate(LocalDate.of(2026, 11, 14))
+                .startDate(LocalDate.of(2028, 11, 11))
+                .endDate(LocalDate.of(2028, 11, 14))
                 .userId(userId)
                 .roomId(roomId)
                 .build();
 
         when(authRestClient.validateJwt(jwtHeader))
-                .thenReturn(
-                        ValidateJwtOutput.builder()
-                                .isValid(true)
-                                .build());
+                .thenReturn(ValidateJwtOutput.builder().isValid(true).build());
 
         Map<String, String> claims = new HashMap<>();
         claims.put("sub", userId);
