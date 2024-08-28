@@ -28,6 +28,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -279,7 +280,7 @@ class HotelControllerTest {
                 .thenReturn(claims);
 
         when(hotelRestClient.getBookingHistory(userId))
-                .thenReturn(GetBookingHistoryOutput.builder().build());
+                .thenReturn(GetBookingHistoryOutput.builder().bookings(new ArrayList<>()).build());
 
         GetBookingHistoryBffInput getBookingHistoryBffInput = GetBookingHistoryBffInput.builder()
                 .userContextId(userId)
