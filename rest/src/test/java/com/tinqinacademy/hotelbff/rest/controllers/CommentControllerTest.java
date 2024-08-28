@@ -1,8 +1,8 @@
 package com.tinqinacademy.hotelbff.rest.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tinqinacademy.comments.api.operations.getcomments.CommentOutput;
 import com.tinqinacademy.comments.api.operations.getcomments.GetCommentsOutput;
-import com.tinqinacademy.hotelbff.api.operations.comment.getcomments.GetCommentsBffOutput;
 import com.tinqinacademy.hotelbff.api.restroutes.RestApiRoutes;
 import com.tinqinacademy.hotelbff.domain.feignclients.AuthRestClient;
 import com.tinqinacademy.hotelbff.domain.feignclients.CommentsRestClient;
@@ -19,7 +19,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
@@ -54,15 +56,37 @@ public class CommentControllerTest {
     }
 
     @Test
-    void getAllComments() throws Exception {
+    void getAllCommentsReturnsOk() throws Exception {
         String roomId = UUID.randomUUID().toString();
-        GetCommentsBffOutput output = GetCommentsBffOutput.builder()
-                .comments(new ArrayList<>())
-                .build();
 
-        when(commentsRestClient.getAllComments(roomId)).thenReturn(GetCommentsOutput.builder().build());
+        List<CommentOutput> comments = new ArrayList<>();
+        comments.add(CommentOutput.builder()
+                .id(UUID.randomUUID().toString())
+                .content("This is a comment")
+                .userId(UUID.randomUUID().toString())
+                .lastEditedBy(UUID.randomUUID().toString())
+                .lastEditedDate(LocalDate.parse("2021-08-01"))
+                .publishDate(LocalDate.parse("2021-08-01"))
+                .build());
+
+        when(commentsRestClient.getAllComments(roomId))
+                .thenReturn(GetCommentsOutput.builder()
+                        .comments(comments)
+                        .build());
 
         mvc.perform(get(RestApiRoutes.GET_ALL_COMMENTS, roomId))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void addCommentReturnsOk() throws Exception {
+        String roomId = UUID.randomUUID().toString();
+        String userId = UUID.randomUUID().toString();
+
+        mvc.perform(get(RestApiRoutes.ADD_COMMENT, roomId)
+                .content(mapper.writeValueAsString(CommentOutput.builder()
+                        .content("This is a comment")
+                        .build())))
                 .andExpect(status().isOk());
     }
 
